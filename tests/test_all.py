@@ -197,3 +197,30 @@ def test_luong_mau_cong_ty_ghi_o_va_xlookup():
     assert m.doi_xlookup(f) == "INDEX('Chấm công'!$Q:$Q,MATCH(B34,'Chấm công'!$B:$B,0))"
     assert m.doi_xlookup("IFERROR(_xlfn.XLOOKUP(A1,B:B,C:C,0),0)") == "IFERROR(IFERROR(INDEX(C:C,MATCH(A1,B:B,0)),0),0)"
     assert m._thang_trong_tieu_de("BẢNG THANH TOÁN TIỀN LƯƠNG THÁNG 10/2026") == "10/2026"
+
+
+def test_luong_nhan_dien_cau_truc_va_mau_cong_thuc():
+    from openpyxl import Workbook
+
+    from ketoan_ai.payroll import cau_truc as c
+
+    wb = Workbook()
+    ws = wb.active
+    ws["A7"] = "Khối văn phòng"
+    ws["H7"] = 0.7
+    for r, ten in ((8, "An"), (9, "Bình")):
+        ws[f"A{r}"], ws[f"B{r}"], ws[f"G{r}"] = r - 7, ten, 10_000_000
+        ws[f"H{r}"] = f"=G{r}*$H$7"
+    ws["A11"] = "Khối thi công"
+    ws["R11"] = 150000
+    ws["A12"] = "Công trình X"
+    ws["A13"], ws["B13"], ws["Q13"] = 3, "Cường", 2
+    ws["R13"] = "=Q13*$R$11"
+    ws["B15"] = "Tổng Cộng"
+    ct = c.nhan_dien(ws)
+    assert ct.hdr == {"vp": 7, "tc": 11} and ct.dong_tong == 15
+    assert ct.nhan_vien == {8: ("vp", "an"), 9: ("vp", "bình"), 13: ("tc", "cường")}
+    assert ("ct", 12, 13, 13) in ct.nhom
+    mau = c._mau_hoa("=Q13*$R$11+'Sheet 9'!A13", 13, ct.hdr)
+    assert mau == "=Q{r}*$R${hdr_tc}+'Sheet 9'!A{r}"
+    assert c.ap_mau(mau, 20, {"vp": 7, "tc": 12}) == "=Q20*$R$12+'Sheet 9'!A20"

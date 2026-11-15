@@ -1,56 +1,36 @@
-# Cập nhật bảng lương theo FILE MẪU CỦA CÔNG TY (ví dụ "Bảng lương tháng 10.2026.xlsx").
-# App KHÔNG đổi bất kỳ công thức, hệ số nào. App chỉ chép số liệu từ sheet chấm công sang các ô
-# nhập tay trong sheet "Bảng lương", đổi tiêu đề tháng, rồi để chính công thức Excel tự tính.
+# Cập nhật bảng lương theo FILE MẪU CỦA CÔNG TY.
+# App KHÔNG đổi công thức/hệ số đang có. App chỉ:
+#  (1) chép số liệu chấm công sang các ô nhập tay của sheet "Bảng lương" (khớp theo họ tên),
+#  (2) ô công thức nào bị TRỐNG thì điền lại theo bộ công thức chuẩn (config/luong_cong_thuc.yaml),
+#  (3) BHXH / công đoàn / phụ cấp đang TRỐNG thì lấy từ sheet "Phụ cấp",
+#  (4) đổi tiêu đề tháng, cập nhật bảng tổng hợp.
+# Vùng dòng của từng khối được TỰ NHẬN DIỆN theo nhãn "Khối văn phòng", "Thực tập sinh", "Khối thi công".
 sheet_bang_luong: "Bảng lương"
 sheet_cham_cong: "Chấm công + đánh giá hiệu quả"
 sheet_tong_hop: "BANG TONG HOP"
-cot_ten_bang_luong: "B"
-cot_ten_cham_cong: "B"
+sheet_phu_cap: "Phụ cấp"
 dong_bat_dau_cham_cong: 6
 
-# Mỗi khối: các dòng nhân viên trong sheet Bảng lương + ánh xạ cột Bảng lương <- cột Chấm công.
-# Ô nào trong Bảng lương đang là CÔNG THỨC thì app bỏ qua (không ghi đè).
-khoi:
-  - ten: "Khối văn phòng + thực tập sinh"
-    dong_tu: 8
-    dong_den: 36
-    cot:
-      E: T   # Công chuẩn          <- Ngày công chuẩn
-      F: Q   # Công thực tế        <- Ngày công
-      J: I   # Hệ số HT KPI        <- Hệ số hiệu quả công việc
-      L: S   # Ngày nghỉ phép      <- Nghỉ phép
-      Q: J   # Giờ làm thêm ngày thường (150%)
-      S: K   # Giờ làm thêm ngày nghỉ (200%)
-      U: L   # Ngày làm thêm lễ, Tết (300%)
-  - ten: "Khối thi công"
-    dong_tu: 41
-    dong_den: 74
-    cot:
-      E: T
-      F: Q
-      J: I
-      L: S
-      Q: M   # Số buổi làm thêm trước 21h (x đơn giá ô R39)
-      S: N   # Số buổi làm thêm sau 21h (x đơn giá ô T39)
-      U: L
+# Cột Bảng lương <- cột Chấm công, theo khối (vp = văn phòng, tts = thực tập sinh, tc = thi công)
+anh_xa:
+  vp:  {E: T, F: Q, J: I, L: S, Q: J, S: K, U: L}
+  tts: {E: T, F: Q, J: I, L: S, Q: J, S: K, U: L}
+  tc:  {E: T, F: Q, J: I, L: S, Q: M, S: N, U: L}   # Q, S khối thi công = số buổi trước / sau 21h
 
-# Ô tiêu đề có chữ "THÁNG mm/yyyy" cần đổi sang tháng mới
+# Cột Bảng lương <- cột sheet Phụ cấp (chỉ điền khi ô đang trống)
+tu_phu_cap: {O: M, P: N, Z: L}
+
 tieu_de:
   - ["Bảng lương", "K3"]
   - ["BANG TONG HOP", "A3"]
 
-# Bảng tổng hợp: khi sang tháng mới, cột "tháng trước" nhận số thực nhận cũ của từng khối
+# Bảng tổng hợp: dòng 5..7 cột C trỏ tới tổng thực nhận từng khối; khi sang tháng mới,
+# cột E (tháng trước) nhận số cũ đó. Ô nguồn được đọc từ chính công thức cột C.
 tong_hop:
   o_thang_nay: "C4"
   o_thang_truoc: "E4"
-  dong_thang_truoc:          # ô tháng trước <- ô tổng thực nhận trong Bảng lương (giá trị cũ)
-    E5: "AD39"   # Khối công trường
-    E6: "AD7"    # Khối văn phòng
-    E7: "AD33"   # Thực tập sinh
+  dong: [5, 6, 7]
+  cot_nay: "C"
+  cot_truoc: "E"
 
-# Ô hiển thị kết quả trên app
-tong_khoi:
-  "Khối văn phòng": "AD7"
-  "Thực tập sinh": "AD33"
-  "Khối thi công": "AD39"
 cot_ket_qua: {"Công thực tế": "F", "Lương Gross": "AA", "Thực nhận": "AD"}

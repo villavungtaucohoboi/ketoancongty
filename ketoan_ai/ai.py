@@ -224,12 +224,20 @@ def _goi_claude(system, parts, schema, max_tokens):
         elif pt["type"] == "image":
             content.append({"type": "image", "source": {"type": "base64", "media_type": pt["media_type"],
                                                         "data": base64.standard_b64encode(pt["data"]).decode()}})
-    resp = anthropic.Anthropic().messages.parse(
-        model=os.environ.get("KT_MODEL", DEFAULT_CLAUDE_MODEL), max_tokens=max_tokens, system=system,
-        messages=[{"role": "user", "content": content}], output_format=schema,
-    )
+    client = anthropic.Anthropic()
+    kw = dict(model=os.environ.get("KT_MODEL", DEFAULT_CLAUDE_MODEL), max_tokens=max_tokens, system=system,
+              messages=[{"role": "user", "content": content}], output_format=schema)
+    try:
+        # Dự phòng phía máy chủ: nếu model chính từ chối một tài liệu, API tự chạy lại trên model dự phòng phù hợp.
+        resp = client.beta.messages.parse(betas=["server-side-fallback-2026-07-01"], fallbacks="default", **kw)
+    except anthropic.BadRequestError as ex:
+        if "fallback" not in str(ex).lower():
+            raise
+        resp = client.messages.parse(**kw)  # tài khoản chưa hỗ trợ dự phòng -> gọi thường
     if resp.stop_reason == "refusal":
         raise RuntimeError("Claude từ chối xử lý tài liệu này (stop_reason=refusal).")
+    if resp.stop_reason == "max_tokens" or resp.parsed_output is None:
+        raise RuntimeError("Claude trả kết quả không đầy đủ (hết giới hạn độ dài). Thử lại với tài liệu ngắn hơn.")
     return resp.parsed_output
 
 

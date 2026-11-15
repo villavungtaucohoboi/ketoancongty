@@ -1,0 +1,166 @@
+# BỘ CÔNG THỨC CHUẨN của sheet "Bảng lương", trích tự động từ file lương tháng 10/2026 của công ty.
+# App chỉ dùng để ĐIỀN VÀO Ô ĐANG TRỐNG; ô đã có công thức hoặc số liệu thì không bao giờ ghi đè.
+# {r} = dòng của nhân viên; {hdr_vp} / {hdr_tc} = dòng tiêu đề Khối văn phòng / Khối thi công.
+# Phần "mac_dinh" = công thức chung từng khối; phần "rieng" = công thức riêng theo họ tên
+# (null = người đó không có công thức ở cột này).
+# Khi công ty đổi công thức: chạy  python -m ketoan_ai.cli luong-chuan <file chuẩn mới>  để trích lại.
+mac_dinh:
+  vp:
+    H: =G{r}*$H${hdr_vp}
+    I: =G{r}*$I${hdr_vp}
+    K: =I{r}*J{r}
+    M: =H{r}/E{r}*L{r}
+    N: =ROUND(((K{r}+H{r})/E{r}*F{r})+M{r},3)
+    R: =ROUND(G{r}/E{r}/8*1.5*Q{r},-3)
+    T: =ROUND(G{r}/E{r}/8*S{r}*2,-3)
+    V: =ROUND(G{r}/E{r}*U{r}*3,-3)
+    W: =R{r}+T{r}+V{r}
+    AA: =ROUND(N{r}-O{r}-P{r}+R{r}+T{r}+V{r}+Y{r}+Z{r},-3)
+    AD: =ROUND(AA{r}+AB{r}-AC{r},-3)
+  tts:
+    F: =_xlfn.XLOOKUP(B{r},'Chấm công + đánh giá hiệu quả'!$B:$B,'Chấm công + đánh giá hiệu quả'!$Q:$Q)
+    H: =G{r}*$H${hdr_vp}
+    I: =G{r}*$I${hdr_vp}
+    K: =I{r}*J{r}
+    M: =H{r}/E{r}*L{r}
+    N: =ROUND(((K{r}+H{r})/E{r}*F{r})+M{r},3)
+    R: =ROUND(G{r}/E{r}/8*1.5*Q{r},-3)
+    T: =ROUND(G{r}/E{r}/8*S{r}*2,-3)
+    V: =ROUND(G{r}/E{r}*U{r}*3,-3)
+    W: =R{r}+T{r}+V{r}
+    AA: =ROUND(N{r}-O{r}-P{r}+R{r}+T{r}+V{r}+Y{r}+Z{r},-3)
+    AD: =ROUND(AA{r}+AB{r}-AC{r},-3)
+  tc:
+    H: =G{r}*$H${hdr_vp}
+    I: =G{r}*$I${hdr_vp}
+    K: =I{r}*J{r}
+    M: =H{r}/E{r}*L{r}
+    N: =ROUND(((K{r}+H{r})/E{r}*F{r})+M{r},3)
+    R: =Q{r}*$R${hdr_tc}
+    T: =S{r}*$T${hdr_tc}
+    V: =ROUND(G{r}/E{r}*U{r}*2,-3)
+    W: =R{r}+T{r}+V{r}
+    X: =F{r}
+    Y: =X{r}*$Y${hdr_tc}
+    AA: =ROUND(N{r}-O{r}-P{r}+R{r}+T{r}+V{r}+Y{r}+Z{r},-3)
+    AD: =ROUND(AA{r}+AB{r}-AC{r},-3)
+rieng:
+  phạm tiến tới:
+    AA: =N{r}-O{r}-P{r}+R{r}+T{r}+V{r}+Y{r}+Z{r}
+  lâm hoài nam:
+    X: =F{r}
+    Y: =X{r}*35000
+  hà văn an:
+    R: =Q{r}*70000
+    X: =F{r}+5
+  nguyễn huy thái:
+    T: =S{r}*200000
+  trịnh đình sơn:
+    R: =Q{r}*60000
+    X: =F{r}+5
+  nguyễn văn ngọc:
+    R: =Q{r}*50000
+    X: =F{r}+4
+  lê viết thuấn:
+    R: =Q{r}*50000
+    X: =F{r}+5
+  nguyễn hữu sơn:
+    R: =Q{r}*100000
+    T: =S{r}*200000
+  trần minh hiếu:
+    R: =Q{r}*100000
+    T: =S{r}*200000
+  lê văn đạt:
+    R: =Q{r}*70000
+    X: =F{r}+5
+hang_so:
+  vp:
+    H: 0.7
+    I: 0.3
+    O: 0.105
+    P: 0.01
+    R: 1.5
+    T: 2
+    V: 3
+  tts: {}
+  tc:
+    H: 0.7
+    I: =I{hdr_vp}
+    O: 10.5%
+    R: 150000
+    T: 250000
+    V: 2
+    Y: 70000
+nhom_subtotal:
+  vp:
+    G: SUBTOTAL
+    K: SUBTOTAL
+    L: SUBTOTAL
+    M: SUBTOTAL
+    N: SUBTOTAL
+    X: SUBTOTAL
+    Y: SUBTOTAL
+    Z: SUBTOTAL
+    AA: SUBTOTAL
+    AB: SUBTOTAL
+    AC: SUBTOTAL
+    AD: SUBTOTAL
+  tts:
+    G: SUBTOTAL
+    K: SUBTOTAL
+    N: SUBTOTAL
+    AA: SUBTOTAL
+    AD: SUBTOTAL
+  tc:
+    AA: SUBTOTAL
+    AD: SUBTOTAL
+  ct:
+    G: SUBTOTAL
+    H: SUBTOTAL
+    I: SUBTOTAL
+    J: SUBTOTAL
+    K: SUBTOTAL
+    L: SUBTOTAL
+    M: SUBTOTAL
+    N: SUBTOTAL
+    O: SUBTOTAL
+    P: SUBTOTAL
+    Q: SUBTOTAL
+    R: SUBTOTAL
+    S: SUBTOTAL
+    T: SUBTOTAL
+    U: SUBTOTAL
+    V: SUBTOTAL
+    W: SUBTOTAL
+    X: SUBTOTAL
+    Y: SUBTOTAL
+    Z: SUBTOTAL
+    AA: SUBTOTAL
+    AB: SUBTOTAL
+    AC: SUBTOTAL
+    AD: SUBTOTAL
+  tong:
+    G: SUBTOTAL
+    H: SUBTOTAL
+    I: SUBTOTAL
+    J: SUBTOTAL
+    K: SUBTOTAL
+    L: SUBTOTAL
+    M: SUBTOTAL
+    N: SUBTOTAL
+    O: SUBTOTAL
+    P: SUBTOTAL
+    Q: SUBTOTAL
+    R: SUBTOTAL
+    S: SUBTOTAL
+    T: SUBTOTAL
+    U: SUBTOTAL
+    V: SUBTOTAL
+    W: SUBTOTAL
+    X: SUBTOTAL
+    Y: SUBTOTAL
+    Z: SUBTOTAL
+    AA: SUBTOTAL
+    AB: SUBTOTAL
+    AC: SUBTOTAL
+    AD: SUBTOTAL

@@ -28,7 +28,17 @@ from .. import utils
 
 
 def _norm(s) -> str:
-    return re.sub(r"\s+", " ", unicodedata.normalize("NFC", str(s or ""))).strip().lower()
+    return re.sub(r"\s+", " ", unicodedata.normalize("NFC", str(s or ""))).strip().casefold()
+
+
+def _ten_sheet_that(ten_co: list[str], ten: str) -> str:
+    """Trả về tên sheet thật trong file khớp với tên cấu hình (bỏ qua khác biệt mã Unicode, hoa/thường, khoảng trắng)."""
+    k = _norm(ten)
+    for t in ten_co:
+        if _norm(t) == k:
+            return t
+    raise ValueError(f"Không tìm thấy sheet '{ten}' trong file. Các sheet có trong file: {', '.join(ten_co)}. "
+                     "Kiểm tra đúng file bảng lương của công ty chưa.")
 
 
 def _so(v) -> float:
@@ -112,6 +122,8 @@ def _viet_lai_zip(src: Path, dst: Path, sua: dict[str, bytes]):
     with zipfile.ZipFile(src) as zi, zipfile.ZipFile(dst, "w", zipfile.ZIP_DEFLATED) as zo:
         for item in zi.infolist():
             data = sua.get(item.filename, zi.read(item.filename))
+            if data is None:
+                continue  # bỏ phần này khỏi file
             zo.writestr(item, data)
 
 
@@ -219,11 +231,12 @@ def _gan_gia_tri_cache(out: Path, da_tinh: Path):
     with zipfile.ZipFile(out) as z:
         parts = _sheet_parts(z)
         sua = {}
+        vals_n = {_norm(k): v for k, v in vals.items()}
         for name, part in parts.items():
-            if name not in vals:
+            if _norm(name) not in vals_n:
                 continue
             x = z.read(part).decode("utf-8")
-            v = vals[name]
+            v = vals_n[_norm(name)]
 
             def thay(m):
                 ref, attrs, inner = m.group(1), m.group(2), m.group(3)
@@ -263,92 +276,190 @@ def _serial(d: date) -> int:
     return (d - date(1899, 12, 30)).days
 
 
+def _la_cong_thuc(v) -> bool:
+    return (isinstance(v, str) and v.startswith("=")) or hasattr(v, "text")
+
+
+def _trong(v) -> bool:
+    return v is None or (isinstance(v, str) and not v.strip())
+
+
+def _ghi_cong_thuc(xml: str, ref: str, f: str) -> str:
+    """Ghi công thức vào ô ĐANG TRỐNG (giữ style)."""
+    body = escape(f[1:] if f.startswith("=") else f)
+    m = re.search(_CELL_RE.format(ref=ref), xml, re.S)
+    if m:
+        if m.group("inner") and ("<f" in m.group("inner") or "<v" in m.group("inner") or "<is" in m.group("inner")):
+            raise ValueError(f"Ô {ref} không trống, không ghi đè.")
+        attrs = re.sub(r'\s+t="[^"]*"', "", m.group("attrs"))
+        return xml[: m.start()] + f'<c r="{ref}"{attrs}><f>{body}</f></c>' + xml[m.end():]
+    x = _ghi_o(xml, ref, 0)  # tạo ô đúng vị trí rồi thay nội dung
+    return re.sub(rf'<c r="{ref}"([^>/]*)><v>0</v></c>', rf'<c r="{ref}"\1><f>{body}</f></c>', x, count=1)
+
+
+def _o_tham_chieu(f) -> str | None:
+    """'='Bảng lương'!AD40' -> 'AD40'"""
+    m = re.search(r"!\$?([A-Z]{1,3})\$?(\d+)\s*$", str(getattr(f, "text", f) or ""))
+    return f"{m.group(1)}{m.group(2)}" if m else None
+
+
 def cap_nhat(file_vao: str | Path, thang_moi: str, file_ra: str | Path, tinh: bool = True) -> KetQua:
-    """thang_moi: 'mm/yyyy'. Trả về KetQua; file_ra là bảng lương tháng mới (công thức nguyên vẹn)."""
+    """thang_moi: 'mm/yyyy'. Trả về KetQua; file_ra là bảng lương tháng mới (công thức có sẵn giữ nguyên)."""
+    from . import cau_truc
+
     cfg = utils.load_yaml("luong_hcic.yaml")
+    chuan = utils.load_yaml("luong_cong_thuc.yaml")
     file_vao, file_ra = Path(file_vao), Path(file_ra)
     mm, yyyy = [int(x) for x in thang_moi.split("/")]
     wf = openpyxl.load_workbook(file_vao)                 # công thức
     wv = openpyxl.load_workbook(file_vao, data_only=True)  # giá trị đang lưu
-    bl_f, bl_v, cc = wf[cfg["sheet_bang_luong"]], wv[cfg["sheet_bang_luong"]], wv[cfg["sheet_cham_cong"]]
+    that = lambda ten: _ten_sheet_that(wf.sheetnames, ten)  # noqa: E731
+    SH_BL, SH_CC, SH_TH = that(cfg["sheet_bang_luong"]), that(cfg["sheet_cham_cong"]), that(cfg["sheet_tong_hop"])
+    try:
+        SH_PC = that(cfg["sheet_phu_cap"])
+    except ValueError:
+        SH_PC = None
+    tieu_de = [[that(sh), o] for sh, o in cfg["tieu_de"]]
+    bl_f, bl_v, cc = wf[SH_BL], wv[SH_BL], wv[SH_CC]
+    ct = cau_truc.nhan_dien(bl_f)
+    if not ct.nhan_vien or "vp" not in ct.hdr:
+        raise ValueError("Không nhận ra cấu trúc sheet Bảng lương (thiếu nhãn 'Khối văn phòng' / 'Khối thi công' ở cột A).")
     canh_bao: list[str] = []
+    TEN_KHOI = {"vp": "Văn phòng", "tts": "Thực tập sinh", "tc": "Thi công"}
 
-    # --- dữ liệu chấm công theo tên
-    cc_rows: dict[str, int] = {}
-    for r in range(cfg["dong_bat_dau_cham_cong"], cc.max_row + 1):
-        ten = cc[f"{cfg['cot_ten_cham_cong']}{r}"].value
-        if ten and isinstance(cc[f"A{r}"].value, (int, float)):
-            k = _norm(ten)
-            if k in cc_rows:
-                canh_bao.append(f"Tên '{ten}' xuất hiện 2 lần trong sheet chấm công (dòng {cc_rows[k]} và {r}); dùng dòng đầu.")
-            else:
-                cc_rows[k] = r
+    # --- chấm công & phụ cấp theo tên
+    def theo_ten(ws, r0, cot_ten="B"):
+        d = {}
+        for r in range(r0, ws.max_row + 1):
+            ten = ws[f"{cot_ten}{r}"].value
+            if ten and isinstance(ws[f"A{r}"].value, (int, float)) or (ten and ws is not cc and r >= r0 and ws[f"A{r}"].value not in (None, "")):
+                k = _norm(ten)
+                if k in d and ws is cc:
+                    canh_bao.append(f"Tên '{ten}' xuất hiện 2 lần trong sheet chấm công (dòng {d[k]} và {r}); dùng dòng đầu.")
+                d.setdefault(k, r)
+        return d
 
-    # --- ô cần ghi
-    edits: dict[str, dict[str, object]] = {cfg["sheet_bang_luong"]: {}, cfg["sheet_tong_hop"]: {}}
+    cc_rows = theo_ten(cc, cfg["dong_bat_dau_cham_cong"])
+    pc = wv[SH_PC] if SH_PC else None
+    pc_rows = {}
+    if pc is not None:
+        for r in range(2, pc.max_row + 1):
+            if pc[f"B{r}"].value:
+                pc_rows.setdefault(_norm(pc[f"B{r}"].value), r)
+
+    edits: dict[str, dict[str, object]] = {SH_BL: {}, SH_TH: {}}
+    cong_thuc: dict[str, str] = {}   # ô -> công thức cần điền (chỉ ô trống)
     thay_doi = []
-    da_gap = set()
-    for khoi in cfg["khoi"]:
-        for r in range(khoi["dong_tu"], khoi["dong_den"] + 1):
-            ten = bl_v[f"{cfg['cot_ten_bang_luong']}{r}"].value
-            if not ten or not isinstance(bl_v[f"A{r}"].value, (int, float)):
+    hdr = ct.hdr
+
+    def ghi_cong_thuc_neu_trong(o, mau, r):
+        if mau and _trong(bl_f[o].value):
+            cong_thuc[o] = cau_truc.ap_mau(mau, r, hdr)
+
+    # 1) dòng tiêu đề khối: hằng số/công thức chuẩn nếu trống
+    for loai, r in hdr.items():
+        for c, v in (chuan.get("hang_so", {}).get(loai) or {}).items():
+            o = f"{c}{r}"
+            if not _trong(bl_f[o].value):
                 continue
-            k = _norm(ten)
-            da_gap.add(k)
-            if k not in cc_rows:
-                canh_bao.append(f"'{ten}' (dòng {r} Bảng lương) không có trong sheet chấm công: giữ nguyên số liệu cũ, cần kiểm tra (nghỉ việc?).")
-                continue
-            rc = cc_rows[k]
-            for c_bl, c_cc in khoi["cot"].items():
+            if isinstance(v, str) and v.startswith("="):
+                cong_thuc[o] = cau_truc.ap_mau(v, r, hdr)
+            else:
+                edits[SH_BL][o] = v
+    # 2) dòng nhóm (khối, công trình, tổng): SUBTOTAL theo vùng dòng mới nếu trống
+    for loai, r, a, b in ct.nhom:
+        for c in (chuan.get("nhom_subtotal", {}).get(loai) or {}):
+            if _trong(bl_f[f"{c}{r}"].value) and not (loai in hdr and c in (chuan.get("hang_so", {}).get(loai) or {})):
+                cong_thuc[f"{c}{r}"] = f"=SUBTOTAL(9,{c}{a}:{c}{b})"
+    # 3) từng nhân viên
+    so_cong_thuc_nv = 0
+    for r, (khoi, k) in sorted(ct.nhan_vien.items()):
+        ten = bl_v[f"B{r}"].value
+        rieng = (chuan.get("rieng") or {}).get(k, {})
+        mac_dinh = (chuan.get("mac_dinh") or {}).get(khoi, {})
+        for c in set(mac_dinh) | set(rieng):
+            mau = rieng[c] if c in rieng else mac_dinh.get(c)
+            truoc = len(cong_thuc)
+            ghi_cong_thuc_neu_trong(f"{c}{r}", mau, r)
+            so_cong_thuc_nv += len(cong_thuc) - truoc
+        if pc is not None and k in pc_rows:
+            for c_bl, c_pc in cfg["tu_phu_cap"].items():
                 o = f"{c_bl}{r}"
-                fv = bl_f[o].value
-                if isinstance(fv, str) and fv.startswith("=") or hasattr(fv, "text"):
-                    continue  # ô công thức: không đụng
-                cu, moi = _so(bl_v[o].value), _so(cc[f"{c_cc}{rc}"].value)
-                if abs(cu - moi) > 1e-9:
-                    thay_doi.append({"Dòng": r, "Họ tên": ten, "Khối": khoi["ten"], "Ô": o,
-                                     "Nội dung": str(bl_v[f"{c_bl}5"].value or bl_v[f"{c_bl}6"].value or c_bl).replace("\n", " "),
-                                     "Cũ": cu, "Mới": moi})
-                edits[cfg["sheet_bang_luong"]][o] = moi if moi else None if bl_v[o].value is None else 0
+                if _trong(bl_f[o].value) and o not in cong_thuc:
+                    v = pc[f"{c_pc}{pc_rows[k]}"].value
+                    if isinstance(v, (int, float)) and v:
+                        edits[SH_BL][o] = v
+        if k not in cc_rows:
+            canh_bao.append(f"'{ten}' (dòng {r} Bảng lương) không có trong sheet chấm công: giữ nguyên số liệu, cần kiểm tra (nghỉ việc?).")
+            continue
+        rc = cc_rows[k]
+        for c_bl, c_cc in cfg["anh_xa"][khoi].items():
+            o = f"{c_bl}{r}"
+            if _la_cong_thuc(bl_f[o].value) or o in cong_thuc:
+                continue  # ô công thức (vd. công TTS lấy bằng XLOOKUP): không đụng
+            cu, moi = _so(bl_v[o].value), _so(cc[f"{c_cc}{rc}"].value)
+            if abs(cu - moi) > 1e-9:
+                thay_doi.append({"Dòng": r, "Họ tên": ten, "Khối": TEN_KHOI[khoi], "Ô": o,
+                                 "Nội dung": str(bl_v[f"{c_bl}5"].value or bl_v[f"{c_bl}6"].value or c_bl).replace("\n", " "),
+                                 "Cũ": cu, "Mới": moi})
+                edits[SH_BL][o] = moi if moi else (None if bl_v[o].value is None else 0)
+    da_co = {k for _, k in ct.nhan_vien.values()}
     for k, r in cc_rows.items():
-        if k not in da_gap:
-            canh_bao.append(f"'{cc[f'B{r}'].value}' có trong chấm công nhưng chưa có dòng trong Bảng lương (nhân viên mới?): "
-                            "thêm dòng vào Bảng lương bằng Excel (chép dòng đồng nghiệp cùng khối) rồi chạy lại.")
+        if k not in da_co:
+            canh_bao.append(f"'{cc[f'B{r}'].value}' có trong chấm công nhưng chưa có dòng trong Bảng lương: "
+                            "thêm dòng vào đúng khối bằng Excel (chép dòng đồng nghiệp cùng khối) rồi chạy lại.")
+    if so_cong_thuc_nv:
+        canh_bao.insert(0, f"File tải lên bị thiếu {so_cong_thuc_nv} công thức ở sheet Bảng lương; app đã điền lại theo công thức chuẩn "
+                           "của công ty (kể cả công thức riêng từng người). Ô đang có công thức hoặc số liệu không bị thay đổi.")
 
     # --- tiêu đề tháng + bảng tổng hợp
     thang_cu = ""
-    for sh, o in cfg["tieu_de"]:
+    for sh, o in tieu_de:
         txt = wv[sh][o].value
         t = _thang_trong_tieu_de(txt)
         thang_cu = thang_cu or t
         if txt and t:
             edits.setdefault(sh, {})[o] = re.sub(r"(TH[ÁA]NG\s*)\d{1,2}\s*[/.]\s*\d{4}", rf"\g<1>{mm:02d}/{yyyy}", unicodedata.normalize("NFC", txt), flags=re.I)
-    sang_thang_moi = bool(thang_cu) and thang_cu != f"{mm:02d}/{yyyy}"
-    if sang_thang_moi:
-        th = cfg["tong_hop"]
-        edits[cfg["sheet_tong_hop"]][th["o_thang_nay"]] = _serial(date(yyyy, mm, 1))
+    th = cfg["tong_hop"]
+    th_f, th_v = wf[SH_TH], wv[SH_TH]
+    nguon = {d: _o_tham_chieu(th_f[f"{th['cot_nay']}{d}"].value) for d in th["dong"]}
+    if thang_cu and thang_cu != f"{mm:02d}/{yyyy}":
+        edits[SH_TH][th["o_thang_nay"]] = _serial(date(yyyy, mm, 1))
         om, oy = [int(x) for x in thang_cu.split("/")]
-        edits[cfg["sheet_tong_hop"]][th["o_thang_truoc"]] = _serial(date(oy, om, 1))
-        for o_th, o_bl in th["dong_thang_truoc"].items():
-            edits[cfg["sheet_tong_hop"]][o_th] = _so(bl_v[o_bl].value)
+        edits[SH_TH][th["o_thang_truoc"]] = _serial(date(oy, om, 1))
+        for d, o_bl in nguon.items():
+            cu = _so(bl_v[o_bl].value) if o_bl else 0
+            if cu:
+                edits[SH_TH][f"{th['cot_truoc']}{d}"] = cu
+            else:
+                canh_bao.append(f"Bảng tổng hợp dòng {d}: file tải lên chưa có số thực nhận tháng {thang_cu} (đang 0) nên cột tháng trước "
+                                "được giữ nguyên; nhập tay số tháng trước nếu cần so sánh.")
 
     # --- ghi XML
     file_ra.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(file_vao) as z:
         parts = _sheet_parts(z)
         sua = {}
-        for sh, cells in edits.items():
-            if not cells:
-                continue
-            x = z.read(parts[sh]).decode("utf-8")
+        for sh in set(edits) | ({SH_BL} if cong_thuc else set()):
+            cells = edits.get(sh, {})
+            part = parts[_ten_sheet_that(list(parts), sh)]
+            x = z.read(part).decode("utf-8")
             for o, v in cells.items():
                 x = _ghi_o(x, o, v)
-            sua[parts[sh]] = x.encode("utf-8")
+            if sh == SH_BL:
+                for o, f in cong_thuc.items():
+                    x = _ghi_cong_thuc(x, o, f)
+            sua[part] = x.encode("utf-8")
         wbx = z.read("xl/workbook.xml").decode("utf-8")
         if "fullCalcOnLoad" not in wbx:
             wbx = re.sub(r"<calcPr\b", '<calcPr fullCalcOnLoad="1"', wbx, count=1) if "<calcPr" in wbx else \
                 wbx.replace("</workbook>", '<calcPr fullCalcOnLoad="1"/></workbook>')
         sua["xl/workbook.xml"] = wbx.encode("utf-8")
+        # chuỗi tính (calcChain) cũ không còn khớp khi thêm công thức -> bỏ, Excel tự dựng lại
+        if "xl/calcChain.xml" in z.namelist():
+            sua["xl/calcChain.xml"] = None
+            sua["[Content_Types].xml"] = re.sub(r'<Override[^>]*calcChain[^>]*/>', "", z.read("[Content_Types].xml").decode("utf-8")).encode("utf-8")
+            sua["xl/_rels/workbook.xml.rels"] = re.sub(r'<Relationship[^>]*calcChain[^>]*/>', "", z.read("xl/_rels/workbook.xml.rels").decode("utf-8")).encode("utf-8")
     _viet_lai_zip(file_vao, file_ra, sua)
 
     kq = KetQua(thay_doi=pd.DataFrame(thay_doi, columns=["Dòng", "Họ tên", "Khối", "Ô", "Nội dung", "Cũ", "Mới"]),
@@ -366,13 +477,16 @@ def cap_nhat(file_vao: str | Path, thang_moi: str, file_ra: str | Path, tinh: bo
             kq.da_tinh = True
             shutil.rmtree(nhap.parent, ignore_errors=True)
     wr = openpyxl.load_workbook(file_ra, data_only=True)
-    bl = wr[cfg["sheet_bang_luong"]]
+    bl = wr[_ten_sheet_that(wr.sheetnames, SH_BL)]
     rows = []
-    for khoi in cfg["khoi"]:
-        for r in range(khoi["dong_tu"], khoi["dong_den"] + 1):
-            if bl[f"B{r}"].value and isinstance(bl[f"A{r}"].value, (int, float)):
-                rows.append({"STT": bl[f"A{r}"].value, "Họ tên": bl[f"B{r}"].value, "Phòng ban": bl[f"D{r}"].value,
-                             **{k: bl[f"{c}{r}"].value for k, c in cfg["cot_ket_qua"].items()}})
+    for r, (khoi, _) in sorted(ct.nhan_vien.items()):
+        rows.append({"STT": bl[f"A{r}"].value, "Họ tên": bl[f"B{r}"].value, "Khối": TEN_KHOI[khoi], "Phòng ban": bl[f"D{r}"].value,
+                     **{k: bl[f"{c}{r}"].value for k, c in cfg["cot_ket_qua"].items()}})
     kq.bang_luong = pd.DataFrame(rows)
-    kq.tong = {k: _so(bl[o].value) for k, o in cfg["tong_khoi"].items()}
+    for r, (khoi, _) in sorted(ct.nhan_vien.items()):
+        if not _so(bl[f"G{r}"].value):
+            canh_bao.append(f"'{bl[f'B{r}'].value}' (dòng {r}) có Thu nhập thỏa thuận = 0 nên chỉ được tính phụ cấp/tiền ăn: "
+                            "kiểm tra lại cột G trong sheet Bảng lương.")
+    nhan = {d: str(th_v[f"B{d}"].value or f"Dòng {d}") for d in th["dong"]}
+    kq.tong = {nhan[d]: _so(bl[o].value) for d, o in nguon.items() if o}
     return kq

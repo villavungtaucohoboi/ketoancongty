@@ -57,9 +57,9 @@ with st.sidebar:
     if st.session_state.get("da_dang_nhap") and st.button("Đăng xuất"):
         st.session_state.clear()
         st.rerun()
-    _provs = ["Grok (xAI)", "OpenAI (ChatGPT)", "Claude (Anthropic)"]
-    _cur = os.environ.get("KT_PROVIDER", "grok")
-    prov = st.radio("Nhà cung cấp", _provs, index={"grok": 0, "openai": 1}.get(_cur, 2))
+    _provs = ["Claude (Anthropic)", "Grok (xAI)", "OpenAI (ChatGPT)"]
+    _cur = os.environ.get("KT_PROVIDER", "claude")
+    prov = st.radio("Nhà cung cấp", _provs, index={"grok": 1, "openai": 2}.get(_cur, 0))
     if prov.startswith("Grok"):
         key = st.text_input("XAI_API_KEY", value=os.environ.get("XAI_API_KEY", ""), type="password", placeholder="xai-...",
                             help="Lấy tại console.x.ai → API Keys. Gói SuperGrok / grok.com không kèm API.")

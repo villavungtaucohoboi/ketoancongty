@@ -43,6 +43,13 @@ def main(argv=None):
     d.add_argument("--tu", help="Từ ngày dd/mm/yyyy (khi đọc thẳng CSDL MISA)")
     d.add_argument("--den", help="Đến ngày dd/mm/yyyy")
 
+    lc = sub.add_parser("luong-chuan", help="Trích lại bộ công thức chuẩn từ file bảng lương có đủ công thức")
+    lc.add_argument("file")
+
+    lt = sub.add_parser("luong-cty", help="Tạo bảng lương tháng mới theo file mẫu công ty")
+    lt.add_argument("file")
+    lt.add_argument("--thang", required=True, help="mm/yyyy")
+
     m = sub.add_parser("misa", help="Kết nối CSDL MISA SME.NET (chỉ đọc)")
     m.add_argument("viec", choices=["kham-pha"])
 
@@ -92,6 +99,23 @@ def main(argv=None):
         print(kq["Tong hop"].to_string(index=False))
         out = compare.xuat_bao_cao(kq, utils.DATA_DIR / "bao_cao" / f"DoiChieu_{datetime.now():%Y%m%d_%H%M}.xlsx")
         print(f"\n=> Báo cáo: {out}")
+    elif a.cmd == "luong-chuan":
+        import yaml
+        from .payroll import cau_truc
+        d = cau_truc.trich_cong_thuc(a.file)
+        p = utils.CONFIG_DIR / "luong_cong_thuc.yaml"
+        head = p.read_text(encoding="utf-8").split("\nmac_dinh:")[0] + "\n" if p.exists() else ""
+        p.write_text(head + yaml.safe_dump(d, allow_unicode=True, sort_keys=False, width=250), encoding="utf-8")
+        print(f"Đã trích {sum(len(v) for v in d['mac_dinh'].values())} công thức chung, {len(d['rieng'])} người có công thức riêng -> {p}")
+    elif a.cmd == "luong-cty":
+        from .payroll import mau_cong_ty
+        out = utils.DATA_DIR / "bao_cao" / f"Bang_luong_thang_{a.thang.replace('/', '.')}.xlsx"
+        kq = mau_cong_ty.cap_nhat(a.file, a.thang, out)
+        for c in kq.canh_bao:
+            print("! " + c)
+        print(kq.thay_doi.to_string(index=False))
+        print("Tổng:", {k: utils.fmt_money(v) for k, v in kq.tong.items()})
+        print(f"=> {out}")
     elif a.cmd == "misa":
         kham_pha_misa()
     elif a.cmd == "luong":
