@@ -85,10 +85,21 @@ def _doc_bang_ke(path: str | Path) -> pd.DataFrame:
             "tong": utils.parse_money(g("tong")),
             "trang_thai": str(g("trang_thai") or "").strip(),
         })
-    df = pd.DataFrame(recs)
+    return _gop(pd.DataFrame(recs))
+
+
+def _gop(df: pd.DataFrame) -> pd.DataFrame:
+    """Chuẩn hóa + gộp nhiều dòng mặt hàng của cùng một hóa đơn thành 1 dòng."""
     if df.empty:
         return df
-    # Bảng kê MISA có thể nhiều dòng / 1 hóa đơn (theo mặt hàng) -> gộp
+    df = df.copy()
+    for c, v in (("ky_hieu", ""), ("mau_so", ""), ("ten", ""), ("trang_thai", ""), ("tong", 0.0), ("ngay", None)):
+        if c not in df:
+            df[c] = v
+    df["mst"] = df["mst"].astype(str).str.replace(r"\D", "", regex=True)
+    df["so_hd"] = df["so_hd"].astype(str).str.strip().str.lstrip("0").replace("", "0")
+    for c in ("tien_hang", "tien_thue", "tong"):
+        df[c] = df[c].map(utils.parse_money)
     df = (df.groupby(["mst", "so_hd"], as_index=False)
             .agg(ky_hieu=("ky_hieu", "first"), mau_so=("mau_so", "first"), ngay=("ngay", "first"), ten=("ten", "first"),
                  tien_hang=("tien_hang", "sum"), tien_thue=("tien_thue", "sum"), tong=("tong", "sum"), trang_thai=("trang_thai", "first")))
@@ -96,9 +107,10 @@ def _doc_bang_ke(path: str | Path) -> pd.DataFrame:
     return df
 
 
-def doi_chieu(file_misa: str | Path, file_thue: str | Path) -> dict[str, pd.DataFrame]:
+def doi_chieu(file_misa: str | Path | pd.DataFrame, file_thue: str | Path) -> dict[str, pd.DataFrame]:
+    """file_misa: đường dẫn bảng kê xuất từ MISA, hoặc DataFrame đọc thẳng từ CSDL MISA (ketoan_ai.misa_db)."""
     tol = float(utils.settings().get("doi_chieu", {}).get("dung_sai_tien", 1000))
-    m = _doc_bang_ke(file_misa)
+    m = _gop(file_misa) if isinstance(file_misa, pd.DataFrame) else _doc_bang_ke(file_misa)
     t = _doc_bang_ke(file_thue)
     if m.empty or t.empty:
         raise ValueError("Một trong hai bảng kê không có dữ liệu hóa đơn.")

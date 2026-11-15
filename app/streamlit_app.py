@@ -248,20 +248,44 @@ with tab2:
 
 # ---------------- Tab 3 ----------------
 with tab3:
+    from ketoan_ai import misa_db
     from ketoan_ai.reconcile import compare
 
-    st.markdown("Tải **bảng kê hóa đơn mua vào từ MISA** (Báo cáo → Thuế → Bảng kê HĐ mua vào, xuất Excel) và "
-                "**bảng kê từ hoadondientu.gdt.gov.vn** (Tra cứu → Hóa đơn mua vào → Xuất Excel).")
+    nguon_misa = st.radio("Dữ liệu MISA lấy từ", ["Đọc thẳng CSDL MISA (máy trong mạng công ty)", "Tải file bảng kê xuất từ MISA"],
+                          index=0 if misa_db.da_cau_hinh() else 1, horizontal=True)
+    doc_thang = nguon_misa.startswith("Đọc thẳng")
     c1, c2 = st.columns(2)
-    f_misa = c1.file_uploader("Bảng kê MISA", type=["xlsx", "xls", "csv"], key="misa")
+    if doc_thang:
+        if not misa_db.da_cau_hinh():
+            c1.warning("Chưa cấu hình kết nối MISA (KT_MISA_DB trong .env). Chức năng này chỉ chạy khi app chạy trên máy "
+                       "trong mạng công ty, không chạy trên Streamlit Cloud. Xem mục 'Kết nối MISA' trong hướng dẫn.")
+        _d = datetime.now().date().replace(day=1)
+        _thang_truoc = (_d - pd.Timedelta(days=1))
+        tu_dc = c1.date_input("Từ ngày (ngày hóa đơn)", value=_thang_truoc.replace(day=1), format="DD/MM/YYYY", key="dc_tu")
+        den_dc = c1.date_input("Đến ngày", value=_thang_truoc, format="DD/MM/YYYY", key="dc_den")
+        c1.caption("Chỉ đọc (SELECT), dữ liệu MISA không rời khỏi máy nội bộ.")
+        f_misa = None
+    else:
+        c1.markdown("**Bảng kê MISA**: Báo cáo → Thuế → Bảng kê HĐ mua vào → Xuất Excel.")
+        f_misa = c1.file_uploader("Bảng kê MISA", type=["xlsx", "xls", "csv"], key="misa")
+    c2.markdown("**Bảng kê Thuế**: hoadondientu.gdt.gov.vn → Tra cứu → Hóa đơn mua vào → Xuất Excel.")
     f_thue = c2.file_uploader("Bảng kê Thuế", type=["xlsx", "xls", "csv"], key="thue")
     e1, e2 = st.columns(2)
     run_real = e1.button("▶ Đối chiếu", type="primary")
     run_demo = e2.button("🧪 Dùng bảng kê mẫu")
-    if run_demo or (run_real and f_misa and f_thue):
+    if run_real and not f_thue:
+        st.warning("Hãy tải bảng kê Thuế lên trước.")
+    if run_demo or (run_real and f_thue and (doc_thang or f_misa)):
         try:
-            kq = compare.doi_chieu(SAMPLES / "bang_ke_misa_mau.xlsx", SAMPLES / "bang_ke_thue_mau.xlsx") if run_demo \
-                else compare.doi_chieu(_save_upload(f_misa), _save_upload(f_thue))
+            if run_demo:
+                kq = compare.doi_chieu(SAMPLES / "bang_ke_misa_mau.xlsx", SAMPLES / "bang_ke_thue_mau.xlsx")
+            elif doc_thang:
+                with st.spinner("Đang đọc hóa đơn mua vào từ CSDL MISA..."):
+                    df_misa = misa_db.bang_ke_mua_vao(tu_dc, den_dc)
+                st.info(f"Đọc được {len(df_misa)} dòng hóa đơn mua vào từ MISA ({tu_dc:%d/%m/%Y} – {den_dc:%d/%m/%Y}).")
+                kq = compare.doi_chieu(df_misa, _save_upload(f_thue))
+            else:
+                kq = compare.doi_chieu(_save_upload(f_misa), _save_upload(f_thue))
             st.session_state["dc"] = kq
         except Exception as ex:  # noqa: BLE001
             st.error(str(ex))
@@ -276,28 +300,70 @@ with tab3:
 
 # ---------------- Tab 4 ----------------
 with tab4:
-    from ketoan_ai.payroll import engine
+    from ketoan_ai.payroll import engine, mau_cong_ty
 
-    st.markdown("Quy tắc tính lương nằm trong `config/luong_rules.yaml` (ngày công chuẩn, hệ số tăng ca, % thưởng theo xếp loại, "
-                "bảo hiểm, giảm trừ, biểu thuế). Mẫu file đầu vào: xem thư mục `samples/`.")
-    c1, c2, c3 = st.columns(3)
-    f_ns = c1.file_uploader("Bảng nhân sự (lương CB, phụ cấp, NPT)", type=["xlsx", "csv"], key="ns")
-    f_cc = c2.file_uploader("Bảng chấm công", type=["xlsx", "csv"], key="cc")
-    f_dg = c3.file_uploader("Bảng đánh giá (xếp loại)", type=["xlsx", "csv"], key="dg")
-    thang = st.text_input("Tháng lương", f"{datetime.now():%m/%Y}")
-    g1, g2 = st.columns(2)
-    run_real = g1.button("▶ Tính lương", type="primary")
-    run_demo = g2.button("🧪 Dùng file mẫu (3 nhân viên)")
-    if run_demo or (run_real and f_ns and f_cc):
-        try:
-            df = engine.tinh_luong(SAMPLES / "nhan_su_mau.xlsx", SAMPLES / "cham_cong_mau.xlsx", SAMPLES / "danh_gia_mau.xlsx") if run_demo \
-                else engine.tinh_luong(_save_upload(f_ns), _save_upload(f_cc), _save_upload(f_dg) if f_dg else None)
-            st.session_state["luong"] = df
-        except Exception as ex:  # noqa: BLE001
-            st.error(str(ex))
-    if "luong" in st.session_state:
-        df = st.session_state["luong"]
-        st.dataframe(df, use_container_width=True, hide_index=True)
-        st.metric("Tổng thực lĩnh", utils.fmt_money(df["THỰC LĨNH"].sum()))
-        out = engine.xuat_bang_luong(df, utils.DATA_DIR / "bao_cao" / f"BangLuong_{thang.replace('/', '_')}.xlsx", thang)
-        _download(out, "⬇ Tải bảng lương")
+    che_do = st.radio("Cách tính", ["Theo file bảng lương của công ty (khuyên dùng)", "Bảng lương mẫu chung của app"], horizontal=True)
+    if che_do.startswith("Theo file"):
+        st.markdown(
+            "1. Mở file bảng lương **tháng trước** bằng Excel, nhân sự cập nhật sheet **Chấm công + đánh giá hiệu quả** cho tháng mới "
+            "(ngày công, điểm/hệ số hiệu quả, nghỉ phép, làm thêm), lưu lại.\n"
+            "2. Tải file đó lên dưới đây, chọn tháng lương, bấm **Tạo bảng lương**.\n"
+            "3. App chép số liệu sang sheet **Bảng lương**, đổi tiêu đề tháng, cập nhật bảng tổng hợp. "
+            "**Không đổi bất kỳ công thức, hệ số nào**; Excel tự tính lại khi mở file.")
+        k1, k2 = st.columns([3, 1])
+        f_mau = k1.file_uploader("File bảng lương (đã cập nhật chấm công tháng mới)", type=["xlsx"], key="mau_cty")
+        _t = datetime.now()
+        thang_mau = k2.text_input("Tháng lương", f"{_t.month:02d}/{_t.year}", key="thang_mau")
+        if st.button("▶ Tạo bảng lương", type="primary", key="btn_mau") and f_mau:
+            try:
+                src = _save_upload(f_mau)
+                out = utils.DATA_DIR / "bao_cao" / f"Bang_luong_thang_{thang_mau.replace('/', '.')}.xlsx"
+                with st.spinner("Đang chép số liệu và tính thử (khoảng 10–30 giây)..."):
+                    kq = mau_cong_ty.cap_nhat(src, thang_mau, out)
+                st.session_state["luong_mau"] = (kq, out)
+            except Exception as ex:  # noqa: BLE001
+                st.error(str(ex))
+        if "luong_mau" in st.session_state:
+            kq, out = st.session_state["luong_mau"]
+            if kq.thang_cu and kq.thang_cu != kq.thang_moi:
+                st.success(f"Đã tạo bảng lương tháng {kq.thang_moi} từ file tháng {kq.thang_cu}.")
+            for cb in kq.canh_bao:
+                st.warning(cb)
+            st.markdown(f"**Ô đã cập nhật từ chấm công: {len(kq.thay_doi)}** (các ô khác giữ nguyên)")
+            if len(kq.thay_doi):
+                st.dataframe(kq.thay_doi, use_container_width=True, hide_index=True)
+            if kq.da_tinh:
+                cols = st.columns(len(kq.tong) + 1)
+                for col, (k, v) in zip(cols, kq.tong.items()):
+                    col.metric(f"Thực nhận {k}", utils.fmt_money(v))
+                cols[-1].metric("Tổng chi lương", utils.fmt_money(sum(kq.tong.values())))
+                with st.expander("Thực nhận từng người"):
+                    st.dataframe(kq.bang_luong, use_container_width=True, hide_index=True)
+            else:
+                st.info("Máy chủ không có LibreOffice nên chưa xem trước được số tiền. Tải file về và mở bằng Excel, Excel tự tính đúng theo công thức.")
+            _download(out, f"⬇ Tải bảng lương tháng {kq.thang_moi}")
+        st.caption("Muốn dùng bảng lương mẫu chung (không theo file công ty), chọn cách tính thứ hai ở trên.")
+    else:
+        st.markdown("Quy tắc tính lương nằm trong `config/luong_rules.yaml` (ngày công chuẩn, hệ số tăng ca, % thưởng theo xếp loại, "
+                    "bảo hiểm, giảm trừ, biểu thuế). Mẫu file đầu vào: xem thư mục `samples/`.")
+        c1, c2, c3 = st.columns(3)
+        f_ns = c1.file_uploader("Bảng nhân sự (lương CB, phụ cấp, NPT)", type=["xlsx", "csv"], key="ns")
+        f_cc = c2.file_uploader("Bảng chấm công", type=["xlsx", "csv"], key="cc")
+        f_dg = c3.file_uploader("Bảng đánh giá (xếp loại)", type=["xlsx", "csv"], key="dg")
+        thang = st.text_input("Tháng lương", f"{datetime.now():%m/%Y}")
+        g1, g2 = st.columns(2)
+        run_real = g1.button("▶ Tính lương", type="primary")
+        run_demo = g2.button("🧪 Dùng file mẫu (3 nhân viên)")
+        if run_demo or (run_real and f_ns and f_cc):
+            try:
+                df = engine.tinh_luong(SAMPLES / "nhan_su_mau.xlsx", SAMPLES / "cham_cong_mau.xlsx", SAMPLES / "danh_gia_mau.xlsx") if run_demo \
+                    else engine.tinh_luong(_save_upload(f_ns), _save_upload(f_cc), _save_upload(f_dg) if f_dg else None)
+                st.session_state["luong"] = df
+            except Exception as ex:  # noqa: BLE001
+                st.error(str(ex))
+        if "luong" in st.session_state:
+            df = st.session_state["luong"]
+            st.dataframe(df, use_container_width=True, hide_index=True)
+            st.metric("Tổng thực lĩnh", utils.fmt_money(df["THỰC LĨNH"].sum()))
+            out = engine.xuat_bang_luong(df, utils.DATA_DIR / "bao_cao" / f"BangLuong_{thang.replace('/', '_')}.xlsx", thang)
+            _download(out, "⬇ Tải bảng lương")

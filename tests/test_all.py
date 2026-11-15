@@ -127,3 +127,73 @@ def test_tinh_luong(tmp_path):
     assert b["Thuế TNCN"] == 5_000 and b["THỰC LĨNH"] == 16_525_000
     out = engine.xuat_bang_luong(df, tmp_path / "bl.xlsx", "10/2026")
     assert out.exists()
+
+
+def test_doi_chieu_doc_thang_csdl_misa(monkeypatch, tmp_path):
+    """Giả lập CSDL MISA bằng SQLite: đọc bảng kê mua vào qua câu SQL cấu hình rồi đối chiếu với file thuế."""
+    import sqlite3
+    from datetime import date
+
+    from ketoan_ai import misa_db
+
+    db = sqlite3.connect(tmp_path / "misa.db")
+    db.executescript("""
+    CREATE TABLE PUInvoice (RefID INTEGER, InvNo TEXT, InvSeries TEXT, InvTemplateNo TEXT, InvDate TEXT, AccountObjectName TEXT, AccountObjectTaxCode TEXT);
+    CREATE TABLE PUInvoiceDetail (RefID INTEGER, Amount REAL, VATAmount REAL);
+    INSERT INTO PUInvoice VALUES (1,'0000084','C26TMT','1','2026-10-29','TNMT VN','0108640735'),
+                                 (2,'0000604','C26TTP','1','2026-10-28','Kim Tuan Phat','0106789123'),
+                                 (3,'0000389','C26TCD','1','2026-10-27','Chung Diep','0101234567'),
+                                 (4,'0003561','C26TMI','1','2026-10-25','Minh Quan','0109999888'),
+                                 (5,'0000999','C26XXX','1','2026-09-15','Thang truoc','0100000000');
+    INSERT INTO PUInvoiceDetail VALUES (1,3200000,256000),(2,3200000,256000),(3,50000000,4000000),(3,20000000,1600000),(4,12000000,960000),(5,1,0);
+    """)
+    db.commit()
+    sql = """SELECT i.AccountObjectTaxCode AS mst, i.InvNo AS so_hd, i.InvSeries AS ky_hieu, i.InvTemplateNo AS mau_so,
+                    i.InvDate AS ngay, i.AccountObjectName AS ten, SUM(d.Amount) AS tien_hang, SUM(d.VATAmount) AS tien_thue
+             FROM PUInvoice i JOIN PUInvoiceDetail d ON d.RefID = i.RefID
+             WHERE i.InvDate >= ? AND i.InvDate <= ? GROUP BY i.RefID"""
+    cfg = misa_db.cau_hinh()
+    cfg["bang_ke_mua_vao"]["sql"] = sql
+    monkeypatch.setattr(misa_db, "cau_hinh", lambda: cfg)
+    monkeypatch.setattr(misa_db, "_connect_factory", lambda: sqlite3.connect(tmp_path / "misa.db"))
+
+    assert misa_db.da_cau_hinh()
+    df = misa_db.bang_ke_mua_vao(date(2026, 10, 1), date(2026, 10, 31))
+    assert len(df) == 4  # hóa đơn tháng 9 bị loại
+    kq = compare.doi_chieu(df, SAMPLES / "bang_ke_thue_mau.xlsx")
+    th = kq["Tong hop"].set_index("Chỉ tiêu")["Số lượng"]
+    assert th["Khớp hoàn toàn"] == 3
+    assert set(kq["Chi co tren Thue"]["Số HĐ"]) == {"603", "156"}
+    assert list(kq["Chi co tren MISA"]["Số HĐ"]) == ["3561"]
+    with pytest.raises(ValueError):
+        misa_db.mau_du_lieu("PUInvoice; DROP TABLE x")
+
+
+def test_misa_db_chi_cho_select():
+    import sqlite3
+
+    from ketoan_ai import misa_db
+
+    c = sqlite3.connect(":memory:")
+    for bad in ("DELETE FROM x", "UPDATE x SET a=1", "SELECT 1; DROP TABLE x", "EXEC sp_who"):
+        with pytest.raises(ValueError):
+            misa_db._select(c, bad)
+    assert misa_db._select(c, "SELECT 1 AS a").iloc[0, 0] == 1
+
+
+def test_luong_mau_cong_ty_ghi_o_va_xlookup():
+    from ketoan_ai.payroll import mau_cong_ty as m
+
+    xml = '<sheetData><row r="8" spans="1:5"><c r="A8" s="1"><v>1</v></c><c r="C8" s="2"/><c r="E8" s="3"><f>A8*2</f><v>2</v></c></row></sheetData>'
+    x = m._ghi_o(xml, "C8", 27)
+    assert '<c r="C8" s="2"><v>27</v></c>' in x
+    x = m._ghi_o(x, "B8", 1.5)                       # ô chưa có -> chèn đúng thứ tự cột
+    assert x.index('r="A8"') < x.index('r="B8"') < x.index('r="C8"')
+    x = m._ghi_o(x, "C8", "BẢNG LƯƠNG THÁNG 11/2026")
+    assert 't="inlineStr"' in x and "THÁNG 11/2026" in x
+    with pytest.raises(ValueError):
+        m._ghi_o(x, "E8", 5)                           # không bao giờ ghi đè công thức
+    f = "_xlfn.XLOOKUP(B34,'Chấm công'!$B:$B,'Chấm công'!$Q:$Q)"
+    assert m.doi_xlookup(f) == "INDEX('Chấm công'!$Q:$Q,MATCH(B34,'Chấm công'!$B:$B,0))"
+    assert m.doi_xlookup("IFERROR(_xlfn.XLOOKUP(A1,B:B,C:C,0),0)") == "IFERROR(IFERROR(INDEX(C:C,MATCH(A1,B:B,0)),0),0)"
+    assert m._thang_trong_tieu_de("BẢNG THANH TOÁN TIỀN LƯƠNG THÁNG 10/2026") == "10/2026"

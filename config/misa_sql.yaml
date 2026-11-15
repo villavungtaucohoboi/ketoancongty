@@ -1,0 +1,32 @@
+# Câu truy vấn đọc BẢNG KÊ HÓA ĐƠN MUA VÀO từ CSDL MISA SME.NET (chỉ SELECT).
+#
+# !!! CẦN XÁC NHẬN: tên bảng/cột dưới đây là PHỎNG ĐOÁN theo cấu trúc MISA SME.NET phổ biến.
+# Mỗi phiên bản MISA có thể khác. Chạy `kham_pha_misa.bat` trên máy chủ MISA, gửi file kết quả
+# misa_kham_pha.txt cho người cài đặt để sửa đúng câu SQL này.
+#
+# Hai dấu ? lần lượt là Từ ngày và Đến ngày (yyyy-mm-dd), lọc theo NGÀY HÓA ĐƠN.
+# Phần "cot" ánh xạ tên cột chuẩn của app -> tên cột (alias) trả về trong câu SQL.
+bang_ke_mua_vao:
+  sql: |
+    SELECT
+        i.AccountObjectTaxCode  AS mst,
+        i.InvNo                 AS so_hd,
+        i.InvSeries             AS ky_hieu,
+        i.InvTemplateNo         AS mau_so,
+        i.InvDate               AS ngay,
+        i.AccountObjectName     AS ten,
+        SUM(d.Amount)           AS tien_hang,
+        SUM(d.VATAmount)        AS tien_thue
+    FROM PUInvoice i
+    JOIN PUInvoiceDetail d ON d.RefID = i.RefID
+    WHERE i.InvDate >= ? AND i.InvDate < DATEADD(day, 1, CAST(? AS date))
+    GROUP BY i.AccountObjectTaxCode, i.InvNo, i.InvSeries, i.InvTemplateNo, i.InvDate, i.AccountObjectName
+  cot:
+    mst: mst
+    so_hd: so_hd
+    ky_hieu: ky_hieu
+    mau_so: mau_so
+    ngay: ngay
+    ten: ten
+    tien_hang: tien_hang
+    tien_thue: tien_thue
