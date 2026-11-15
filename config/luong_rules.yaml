@@ -1,0 +1,46 @@
+# ===== Quy tắc tính lương (SỬA THEO BẢNG LƯƠNG MẪU CỦA CÔNG TY) =====
+ngay_cong_chuan: 26            # Số ngày công chuẩn / tháng
+he_so_tang_ca:
+  ngay_thuong: 1.5
+  ngay_nghi: 2.0
+  ngay_le: 3.0
+# Xếp loại đánh giá -> % thưởng KPI trên lương cơ bản (ví dụ, sửa theo quy chế)
+thuong_theo_xep_loai:
+  A: 0.10
+  B: 0.05
+  C: 0.00
+  D: -0.05
+# Bảo hiểm (tỷ lệ NLĐ đóng, áp dụng trên lương đóng BH)
+bao_hiem_nld:
+  bhxh: 0.08
+  bhyt: 0.015
+  bhtn: 0.01
+# Bảo hiểm phần doanh nghiệp (để tính chi phí DN, không trừ vào lương NLĐ)
+bao_hiem_dn:
+  bhxh: 0.17
+  bhyt: 0.03
+  bhtn: 0.01
+  bhtnld: 0.005
+# Trần lương đóng BHXH/BHYT = 20 x lương cơ sở; trần BHTN = 20 x lương tối thiểu vùng. Cập nhật khi Nhà nước thay đổi.
+tran_luong_bhxh: 46800000       # 20 x 2.340.000 (lương cơ sở từ 1/7/2024) - KIỂM TRA LẠI
+tran_luong_bhtn: 99200000       # 20 x 4.960.000 (vùng I từ 1/7/2024) - KIỂM TRA LẠI
+# Thuế TNCN - giảm trừ gia cảnh (KIỂM TRA LẠI mức áp dụng cho kỳ tính thuế hiện hành)
+giam_tru:
+  ban_than: 15500000
+  nguoi_phu_thuoc: 6200000
+# Biểu thuế lũy tiến từng phần (từng bậc: [thu nhập tính thuế tối đa của bậc, thuế suất])
+# Mặc định: biểu 7 bậc theo Luật hiện hành. Khi biểu mới có hiệu lực, sửa lại ở đây.
+bieu_thue:
+  - [5000000, 0.05]
+  - [10000000, 0.10]
+  - [18000000, 0.15]
+  - [32000000, 0.20]
+  - [52000000, 0.25]
+  - [80000000, 0.30]
+  - [null, 0.35]
+# Các khoản phụ cấp KHÔNG tính thuế TNCN (tên cột trong bảng lương / file nhân sự)
+phu_cap_mien_thue:
+  - "Phụ cấp điện thoại"
+  - "Phụ cấp ăn trưa"      # miễn tối đa 730.000/tháng
+  - "Phụ cấp xăng xe"
+muc_mien_an_trua: 730000

@@ -1,0 +1,92 @@
+# ===== Cấu hình chung =====
+cong_ty:
+  ten: "CÔNG TY CỔ PHẦN XÂY DỰNG DÂN DỤNG CÔNG NGHIỆP HÀ NỘI"
+  mst: "0103775584"          # Dùng để nhận biết hóa đơn mua vào (MST người mua = MST công ty)
+  dia_chi: "Số 6 ngách 259/5 Phố Vọng, Phường Tương Mai, Thành phố Hà Nội"
+
+# ===== Phân hệ 1: Sao kê ngân hàng =====
+sao_ke:
+  # Tên tab trên Google Sheet -> tài khoản ngân hàng trong MISA
+  # Số TK phải trùng đúng số tài khoản khai trong MISA (Danh mục > Tài khoản ngân hàng)
+  tabs:
+    ACB_CTY:
+      so_tai_khoan: "3333558866"
+      ngan_hang: "Ngân hàng TMCP Á Châu"
+      tk_hach_toan: "1121"          # TK tiền gửi trong MISA (1121 hoặc 11211, 11212...)
+    VIETIN_CTY:
+      so_tai_khoan: ""
+      ngan_hang: "Ngân hàng TMCP Công Thương Việt Nam"
+      tk_hach_toan: "1121"
+    BIDV_CTY:
+      so_tai_khoan: ""
+      ngan_hang: "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam"
+      tk_hach_toan: "1121"
+    BIDV_NOCB:
+      so_tai_khoan: ""
+      ngan_hang: "Ngân hàng TMCP Đầu tư và Phát triển Việt Nam"
+      tk_hach_toan: "1121"
+  # Tiền tố số chứng từ MISA
+  so_ct_thu: "NTTG"      # Nộp tiền / thu tiền gửi
+  so_ct_chi: "UNC"       # Ủy nhiệm chi
+  # Tài khoản đối ứng mặc định khi AI không chắc chắn
+  tk_doi_ung_mac_dinh:
+    thu: "131"           # Phải thu khách hàng
+    chi: "331"           # Phải trả nhà cung cấp
+  # Các quy tắc hạch toán theo từ khoá trong nội dung giao dịch (ưu tiên trước AI)
+  quy_tac:
+    - tu_khoa: ["PHI CHUYEN TIEN", "PHI QUAN LY TK", "PHI DICH VU", "PHI SMS", "PHI THUONG NIEN"]
+      loai: chi
+      tk_doi_ung: "6428"
+      khoan_muc: "phí ngân hàng"
+    - tu_khoa: ["LAI TIEN GUI", "TRA LAI", "LAI NHAP GOC"]
+      loai: thu
+      tk_doi_ung: "515"
+    - tu_khoa: ["NOP THUE", "NSNN", "KHO BAC", "THUE GTGT", "THUE TNDN"]
+      loai: chi
+      tk_doi_ung: "3331"
+    - tu_khoa: ["BHXH", "BAO HIEM XA HOI"]
+      loai: chi
+      tk_doi_ung: "3383"
+    - tu_khoa: ["LUONG", "TIEN LUONG", "THANH TOAN LUONG"]
+      loai: chi
+      tk_doi_ung: "334"
+    - tu_khoa: ["RUT TIEN MAT", "RUT TM"]
+      loai: chi
+      tk_doi_ung: "1111"
+    - tu_khoa: ["NOP TIEN MAT", "NOP TM"]
+      loai: thu
+      tk_doi_ung: "1111"
+
+# ===== Phân hệ 2: Hóa đơn mua vào từ email =====
+hoa_don:
+  # Chỉ xử lý email trong thư mục/nhãn này (Gmail: INBOX hoặc tên nhãn)
+  thu_muc_email: "INBOX"
+  # Chỉ lấy email chưa đọc? (true = chỉ chưa đọc; false = tất cả trong N ngày gần nhất)
+  chi_chua_doc: false
+  so_ngay_gan_nhat: 7
+  # Đánh dấu nhãn sau khi đã xử lý xong (Gmail tự tạo nếu chưa có)
+  nhan_da_xu_ly: "AI_Da_Nhap"
+  # Tài khoản hạch toán mặc định cho hóa đơn mua hàng
+  tk_no_mac_dinh: "154"       # Chi phí SXKD dở dang (TT133 - theo bảng cân đối TK của công ty)
+  tk_thue_gtgt: "1331"
+  tk_co_mac_dinh: "331"
+  so_ct_mua_hang: "MH"
+  # Tiền tố link tra cứu hóa đơn của các nhà cung cấp dịch vụ HĐĐT (để nhận diện link trong email)
+  mau_link_tra_cuu:
+    - "easyinvoice.com.vn"
+    - "minvoice.vn"
+    - "meinvoice.vn"
+    - "vnpt-invoice.com.vn"
+    - "viettel.vn"
+    - "sinvoice.viettel.vn"
+    - "bkav.com.vn"
+    - "ehoadon"
+    - "tracuu"
+    - "tra-cuu"
+    - "invoice"
+    - "hoadon"
+
+# ===== Phân hệ 3: Đối chiếu =====
+doi_chieu:
+  # Khóa đối chiếu: MST người bán + Ký hiệu + Số hóa đơn
+  dung_sai_tien: 1000      # Chênh lệch dưới mức này (VND) coi như khớp (lệch do làm tròn)

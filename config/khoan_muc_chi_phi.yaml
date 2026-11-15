@@ -1,0 +1,449 @@
+# Danh mục KHOẢN MỤC CHI PHÍ lấy từ MISA (sheet 'Mã khoản mục chi phí'). 'ma' = 'ten' vì MISA dùng tên.
+# 'tu_khoa': gợi ý để AI và bộ quy tắc phân loại; thêm bớt tự do.
+khoan_muc:
+- ma: Chi phí bảo hiểm, huấn luyện an toàn lao động cho công nhân
+  ten: Chi phí bảo hiểm, huấn luyện an toàn lao động cho công nhân
+  tu_khoa:
+  - bảo hiểm công trình
+  - bảo hiểm tai nạn
+  - huấn luyện an toàn
+  - ATLĐ
+  - bảo hộ lao động
+  - mũ
+  - giày bảo hộ
+- ma: Chi phí chung bảo vệ, nấu ăn
+  ten: Chi phí chung bảo vệ, nấu ăn
+  tu_khoa:
+  - bảo vệ
+  - nấu ăn
+  - suất ăn
+  - cơm
+- ma: Chi phí chung container
+  ten: Chi phí chung container
+  tu_khoa:
+  - container
+  - thuê container
+  - văn phòng container
+- ma: Chi phí chung dự phòng
+  ten: Chi phí chung dự phòng
+  tu_khoa:
+  - dự phòng
+- ma: Chi phí chung điện nước sản xuất
+  ten: Chi phí chung điện nước sản xuất
+  tu_khoa:
+  - tiền điện
+  - tiền nước
+  - điện thi công
+  - nước thi công
+  - điện lực
+  - nước sạch
+- ma: Chi phí chung ngoại giao
+  ten: Chi phí chung ngoại giao
+  tu_khoa:
+  - ngoại giao
+  - quà tặng
+  - quà biếu
+- ma: Chi phí chung quản lý chung công ty (lương BĐH công ty, VPP,..)
+  ten: Chi phí chung quản lý chung công ty (lương BĐH công ty, VPP,..)
+  tu_khoa:
+  - văn phòng phẩm
+  - VPP
+  - giấy
+  - mực in
+  - máy photo
+  - máy tính
+  - máy in
+  - phần mềm
+  - nước uống
+  - in ấn
+  - công chứng
+  - chữ ký số
+  - điện thoại
+  - internet
+  - thuê văn phòng
+  - photo
+  - laser
+  - dịch vụ kế toán
+  - phí ngân hàng
+  - Google
+  - Microsoft
+- ma: Chi phí chung thuế VAT
+  ten: Chi phí chung thuế VAT
+  tu_khoa:
+  - thuế GTGT không được khấu trừ
+- ma: Chi phí chung tiếp khách
+  ten: Chi phí chung tiếp khách
+  tu_khoa:
+  - tiếp khách
+  - ăn uống
+  - nhà hàng
+  - khách sạn
+  - tiếp đãi
+- ma: Chi phí chung xăng dầu BCH công trường
+  ten: Chi phí chung xăng dầu BCH công trường
+  tu_khoa:
+  - xăng xe
+  - xăng dầu BCH
+  - đi lại công trường
+- ma: Chi phí dụng cụ sản xuất
+  ten: Chi phí dụng cụ sản xuất
+  tu_khoa:
+  - dụng cụ
+  - đồ nghề
+  - máy khoan cầm tay
+  - máy cắt cầm tay
+  - thang
+  - xe rùa
+  - cuốc
+  - xẻng
+- ma: Chi phí lán trại công nhân
+  ten: Chi phí lán trại công nhân
+  tu_khoa:
+  - lán trại
+  - nhà tạm
+  - container ở
+  - lán
+- ma: Chi phí lương BCH công trường
+  ten: Chi phí lương BCH công trường
+  tu_khoa:
+  - lương ban chỉ huy
+  - lương BCH
+  - chỉ huy trưởng
+- ma: Chi phí máy thi công Bơm bê tông
+  ten: Chi phí máy thi công Bơm bê tông
+  tu_khoa:
+  - bơm bê tông
+  - xe bơm
+  - bơm cần
+  - bơm tĩnh
+- ma: Chi phí nhân chống thấm
+  ten: Chi phí nhân chống thấm
+  tu_khoa:
+  - nhân công chống thấm
+  - thi công chống thấm
+- ma: Chi phí nhân công bê tông
+  ten: Chi phí nhân công bê tông
+  tu_khoa:
+  - nhân công bê tông
+  - đổ bê tông
+- ma: Chi phí nhân công Công nhật
+  ten: Chi phí nhân công Công nhật
+  tu_khoa:
+  - công nhật
+  - nhân công thời vụ
+  - lao động phổ thông
+- ma: Chi phí nhân công Cốt thép
+  ten: Chi phí nhân công Cốt thép
+  tu_khoa:
+  - nhân công cốt thép
+  - gia công cốt thép
+  - buộc thép
+- ma: Chi phí nhân công Sơn bả+Thạch cao
+  ten: Chi phí nhân công Sơn bả+Thạch cao
+  tu_khoa:
+  - sơn bả
+  - bả matit
+  - nhân công sơn
+  - nhân công thạch cao
+- ma: Chi phí nhân công vận chuyển
+  ten: Chi phí nhân công vận chuyển
+  tu_khoa:
+  - vận chuyển
+  - van chuyen
+  - cước vận chuyển
+  - bốc xếp
+  - xe tải
+  - cẩu hàng
+- ma: Chi phí nhân công Vệ sinh công nghiệp
+  ten: Chi phí nhân công Vệ sinh công nghiệp
+  tu_khoa:
+  - vệ sinh công nghiệp
+  - dọn vệ sinh
+  - tổng vệ sinh
+- ma: Chi phí nhân công Xây, Trát, Cán nền, Ốp, Lát
+  ten: Chi phí nhân công Xây, Trát, Cán nền, Ốp, Lát
+  tu_khoa:
+  - nhân công xây
+  - xây trát
+  - cán nền
+  - ốp lát
+  - nhân công ốp
+- ma: Chi phí NVL Base
+  ten: Chi phí NVL Base
+  tu_khoa:
+  - base
+  - cấp phối
+  - đá base
+  - đá 1x2
+  - đá 4x6
+  - đá dăm
+  - đá mi
+- ma: Chi phí NVL Cát đen xây trát
+  ten: Chi phí NVL Cát đen xây trát
+  tu_khoa:
+  - cát đen
+  - cat den
+  - cát xây
+  - cát trát
+  - cát san lấp
+- ma: Chi phí NVL Cát vàng
+  ten: Chi phí NVL Cát vàng
+  tu_khoa:
+  - cát vàng
+  - cat vang
+  - cát bê tông
+- ma: Chi phí NVL chống thấm
+  ten: Chi phí NVL chống thấm
+  tu_khoa:
+  - chống thấm
+  - sika
+  - màng chống thấm
+  - kova
+  - flintkote
+- ma: Chi phí NVL Cốp Pha
+  ten: Chi phí NVL Cốp Pha
+  tu_khoa:
+  - cốp pha
+  - cop pha
+  - ván khuôn
+  - ván ép
+  - phim
+  - coppha
+- ma: Chi phí NVL Gạch đỏ trên mái
+  ten: Chi phí NVL Gạch đỏ trên mái
+  tu_khoa:
+  - ngói
+  - gạch đỏ
+  - gạch mái
+- ma: Chi phí NVL gạch ốp lát
+  ten: Chi phí NVL gạch ốp lát
+  tu_khoa:
+  - gạch ốp
+  - gạch lát
+  - gạch men
+  - gạch granite
+  - ốp lát
+  - đá ốp
+- ma: Chi phí NVL Gạch xây
+  ten: Chi phí NVL Gạch xây
+  tu_khoa:
+  - gạch xây
+  - gạch block
+  - gạch nung
+  - gạch không nung
+  - gạch 2 lỗ
+  - gạch 6 lỗ
+  - gạch bê tông khí
+  - AAC
+- ma: Chi phí NVL giáo tuýp
+  ten: Chi phí NVL giáo tuýp
+  tu_khoa:
+  - giáo
+  - giàn giáo
+  - tuýp
+  - ống tuýp
+  - kích
+  - cùm
+  - mâm giáo
+- ma: Chi phí NVL lưới, bạt
+  ten: Chi phí NVL lưới, bạt
+  tu_khoa:
+  - lưới
+  - bạt
+  - lưới bao che
+  - lưới an toàn
+  - bạt phủ
+- ma: Chi phí NVL Ống cống bê tông
+  ten: Chi phí NVL Ống cống bê tông
+  tu_khoa:
+  - ống cống
+  - cống bê tông
+  - hố ga
+  - cống tròn
+  - cống hộp
+- ma: Chi phí NVL Phụ
+  ten: Chi phí NVL Phụ
+  tu_khoa:
+  - đinh
+  - vít
+  - keo
+  - băng dính
+  - bay
+  - xô
+  - thùng
+  - phụ kiện
+  - vật tư phụ
+  - que hàn
+  - đá cắt
+  - chổi
+  - sơn dặm
+- ma: Chi phí NVL thạch cao
+  ten: Chi phí NVL thạch cao
+  tu_khoa:
+  - thạch cao
+  - tấm thạch cao
+  - khung xương
+  - vĩnh tường
+  - trần thạch cao
+- ma: Chi phí NVL Thép xây dựng
+  ten: Chi phí NVL Thép xây dựng
+  tu_khoa:
+  - thép
+  - thep
+  - sắt
+  - thép cuộn
+  - thép thanh
+  - D10
+  - D12
+  - D14
+  - D16
+  - D20
+  - dây kẽm
+  - lưới thép
+  - thép hình
+- ma: Chi phí NVL thí nghiệm, kiểm định
+  ten: Chi phí NVL thí nghiệm, kiểm định
+  tu_khoa:
+  - thí nghiệm
+  - kiểm định
+  - nén mẫu
+  - thử tải
+  - mẫu bê tông
+  - LAS
+- ma: Chi phí NVL vật tư bể PCCC
+  ten: Chi phí NVL vật tư bể PCCC
+  tu_khoa:
+  - PCCC
+  - phòng cháy
+  - đầu phun
+  - vòi chữa cháy
+  - bể PCCC
+  - sprinkler
+- ma: Chi phí NVL vật tư bể tách mỡ
+  ten: Chi phí NVL vật tư bể tách mỡ
+  tu_khoa:
+  - bể tách mỡ
+  - tách mỡ
+- ma: Chi phí NVL Xi Măng
+  ten: Chi phí NVL Xi Măng
+  tu_khoa:
+  - xi măng
+  - xi mang
+  - ximang
+  - PCB40
+  - PCB30
+  - xmpc
+- ma: Chi phí Thầu phụ
+  ten: Chi phí Thầu phụ
+  tu_khoa:
+  - thầu phụ
+  - nhà thầu phụ
+  - hợp đồng thi công
+  - thi công trọn gói
+  - gói thầu
+- ma: 'Chi phí vật liệu: xăng dầu máy thi công, bật mực,...'
+  ten: 'Chi phí vật liệu: xăng dầu máy thi công, bật mực,...'
+  tu_khoa:
+  - xăng dầu máy
+  - dầu diesel
+  - dầu DO
+  - bật mực
+  - nhớt
+- ma: CP máy thi công
+  ten: CP máy thi công
+  tu_khoa:
+  - thuê máy
+  - máy thi công
+  - vận thăng
+  - máy trộn
+  - máy khoan
+  - máy cắt
+  - máy đầm
+  - máy phát điện
+- ma: Máy thi công_Cẩu
+  ten: Máy thi công_Cẩu
+  tu_khoa:
+  - cẩu
+  - cẩu tháp
+  - xe cẩu
+  - cẩu bánh lốp
+  - thuê cẩu
+- ma: Máy thi công_Máy đào
+  ten: Máy thi công_Máy đào
+  tu_khoa:
+  - máy đào
+  - máy xúc
+  - xúc đào
+  - đào đất
+- ma: Máy thi công_Máy Lu
+  ten: Máy thi công_Máy Lu
+  tu_khoa:
+  - máy lu
+  - lu rung
+  - lu lốp
+  - đầm
+- ma: Nhân công cọc
+  ten: Nhân công cọc
+  tu_khoa:
+  - ép cọc
+  - đóng cọc
+  - khoan cọc
+  - cọc
+- ma: Nhân công điện, nước, lắp đặt thiết bị
+  ten: Nhân công điện, nước, lắp đặt thiết bị
+  tu_khoa:
+  - lắp đặt điện
+  - lắp đặt nước
+  - nhân công điện
+  - nhân công nước
+  - lắp đặt thiết bị
+  - M&E
+- ma: NVL_Betong
+  ten: NVL_Betong
+  tu_khoa:
+  - bê tông
+  - be tong
+  - bê tông thương phẩm
+  - vữa
+  - mác 250
+  - M250
+  - M300
+- ma: NVL_Cửa chống cháy
+  ten: NVL_Cửa chống cháy
+  tu_khoa:
+  - cửa chống cháy
+  - cửa thép chống cháy
+  - cửa ngăn cháy
+- ma: NVL-Vật tư điện
+  ten: NVL-Vật tư điện
+  tu_khoa:
+  - dây điện
+  - cáp điện
+  - ống luồn
+  - aptomat
+  - MCB
+  - tủ điện
+  - đèn
+  - ổ cắm
+  - công tắc
+  - vật tư điện
+- ma: Thi công ván khuôn
+  ten: Thi công ván khuôn
+  tu_khoa:
+  - thi công ván khuôn
+  - nhân công ván khuôn
+  - nhân công cốp pha
+- ma: Vật tư nước
+  ten: Vật tư nước
+  tu_khoa:
+  - ống nhựa
+  - PPR
+  - uPVC
+  - HDPE
+  - van
+  - co
+  - tê
+  - vật tư nước
+  - ngành nước
+  - đồng hồ nước
+  - bồn nước

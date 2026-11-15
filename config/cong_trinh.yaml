@@ -1,0 +1,166 @@
+cong_trinh:
+- ma: 19GD_HUNGHOA_TVGS
+  ten: TVGS thi công gói thầu xây dựng hạ tầng kỹ thuật dự án khu đô thị Hưng Hòa, tại xã Thanh Phong, huyện Thanh Liêm, tỉnh Hà Nam
+  bi_danh:
+  - Hưng Hòa
+  - TVGS Hưng Hòa
+- ma: 19TVKS_CG_DUYTAN
+  ten: 'Khảo sát địa hình và lập Báo cáo nghiên cứu khả thi dự án: Cải tạo hè phố Duy Tân và phố Thành Thái'
+  bi_danh:
+  - Duy Tân
+  - Thành Thái
+- ma: 19TVTT_BCAND_2019
+  ten: TTTK bản vẽ thi công và dự toán các hạng mục điều chỉnh năm 2019 và tư vấn lựa chọn nhà thầu
+  bi_danh:
+  - BCAND
+- ma: 20TC_ĐT_CONGVIENNUOC
+  ten: Thi công công viên nước Tulip
+  bi_danh:
+  - công viên nước
+  - Tulip
+- ma: 20TVTK_GOLDSUN_QUEVO
+  ten: TVTK xây dựng công trình dự án Nhà máy sản xuất Bao bì Goldsun Quế Võ
+  bi_danh:
+  - Goldsun
+  - Quế Võ
+- ma: 20TVTK_QC_TRUNGKINH2
+  ten: Lập hồ sơ thiết kế bản vẽ thi công công trình Trung tâm dịch vụ thương mại và tổ hợp văn phòng cho thuê số 219 Trung Kính
+  bi_danh:
+  - Trung Kính 2
+- ma: 22TC_ANKHANH_HATANG
+  ten: Thi công phần hạ tầng trường EDISON
+  bi_danh:
+  - hạ tầng Edison
+  - EDISON HA TANG
+  - An Khánh hạ tầng
+- ma: 22TVTK_GlobalLink_KS
+  ten: TVTK Khách sạn Amaiama Nha Trang
+  bi_danh:
+  - Amaiama
+  - Nha Trang
+- ma: 23TC_CST_NHAE
+  ten: Thi công nhà E Ecopark
+  bi_danh:
+  - nhà E Ecopark
+  - NHA E
+- ma: 24TC_AM_VP
+  ten: Cải tạo sửa chữa văn phòng thuộc Công ty Cổ phần Kiểm định và kỹ thuật xây dựng Hà Nội
+  bi_danh:
+  - văn phòng Kiểm định
+  - AM VP
+- ma: 24TC_ANKHANH_PS
+  ten: Thi công các hạng mục phát sinh bổ sung
+  bi_danh:
+  - An Khánh phát sinh
+- ma: 24TC_CST_HATANG
+  ten: Thi công hạ tầng Nhà E trường Edison Ecopark
+  bi_danh:
+  - hạ tầng nhà E
+  - Edison Ecopark hạ tầng
+- ma: 24TC_SAOMAI_BACTAI
+  ten: Thi công cải tạo Trụ sở công ty Sao Mai
+  bi_danh:
+  - Sao Mai trụ sở
+  - SAO MAI
+- ma: 24TC_SAOMAI_BIENQC
+  ten: Thi công biển quảng cáo, đá phong thủy Sao Mai
+  bi_danh:
+  - biển quảng cáo Sao Mai
+- ma: 24TC_VANLONG_2
+  ten: Thi công sơn nền nhà xưởng 2 Vân Long
+  bi_danh:
+  - Vân Long 2
+  - xưởng 2 Vân Long
+- ma: 24TC_VANLONG_3
+  ten: Thi công sơn nền Epoxy trục H-K thuộc nhà máy 2 Công ty TNHH Vân Long
+  bi_danh:
+  - Vân Long 3
+  - Epoxy Vân Long
+- ma: 24TVGS_292LLQ
+  ten: Tư vấn giám sát CT 292 Lạc Long Quân
+  bi_danh:
+  - 292 Lạc Long Quân
+  - 292LLQ
+- ma: 24TVTK_QC_219TK
+  ten: Tư vấn thiết kế cải tạo nhà 219 Trung Kính
+  bi_danh:
+  - 219 Trung Kính
+- ma: 25_TC_NAM HA NOI
+  ten: Dự án thi công công trình Khách sạn Labala
+  bi_danh:
+  - Labala
+  - Nam Hà Nội
+  - NAM HA NOI
+  - CT NAM HN
+  - KS Labala
+  - Khách sạn Labala
+- ma: 25_TC_NAM HA NOI_KS
+  ten: Thi công dự án Khách sạn Labala_ Nam Hà Nội ở Hà Nam
+  bi_danh: []
+- ma: 25_TVTK VINAMILK
+  ten: Tư vấn thiết kế kho khô Vinamilk
+  bi_danh:
+  - kho khô Vinamilk
+- ma: 25KSTK_SUMO_Giang Vo
+  ten: Khảo sát và thiết kế kết cấu hạng mục sàn thao tác cho Dự án Cải tạo nhà hàng Sumo Giảng Võ-Hà Nội
+  bi_danh:
+  - Sumo Giảng Võ
+  - SUMO
+- ma: 25TC_ANKHANH_NHA B
+  ten: Thi công công trình Nhà B An Khánh
+  bi_danh:
+  - Nhà B An Khánh
+  - NHA B AN KHANH
+  - An Khánh nhà B
+- ma: 25TC_HANAM_NHAXUONG
+  ten: Thi công nhà xưởng số 02, 03 Hà Nam
+  bi_danh:
+  - nhà xưởng 02
+  - nhà xưởng 03
+  - NX02
+  - NX03
+  - nhà xưởng Hà Nam
+- ma: 25TC_HATANG_VPID
+  ten: Thi công hạ tầng VPID Hà Nam
+  bi_danh:
+  - VPID
+  - hạ tầng VPID
+  - VPID Hà Nam
+- ma: 25TC_VANLONG_GĐ4
+  ten: Thi công nhà máy Vân Long GĐ4
+  bi_danh:
+  - Vân Long GĐ4
+  - VAN LONG GD4
+  - Vân Long giai đoạn 4
+- ma: 25TCTRUONGLCGĐ2_VMHP
+  ten: Thi công xây dựng trường Liên cấp mầm non Hải Phòng GĐ2
+  bi_danh:
+  - Hải Phòng GĐ2
+  - trường liên cấp Hải Phòng
+  - VMHP
+  - Vinschool Hải Phòng
+- ma: 25TVTT_VINAMILK
+  ten: Nhà máy sữa Nghệ An
+  bi_danh:
+  - Vinamilk Nghệ An
+  - nhà máy sữa Nghệ An
+- ma: 26TC_NOCB
+  ten: Dự án Nhà ở cán bộ khu Đại học Nam Cao
+  bi_danh:
+  - NOCB
+  - Nam Cao
+  - nhà ở cán bộ
+  - ĐH Nam Cao
+- ma: CT2025-01(NX01HàNam)
+  ten: Thi công nhà xưởng 01 Hà Nam
+  bi_danh:
+  - nhà xưởng 01
+  - NX01
+- ma: VP
+  ten: Văn phòng công ty (chi phí quản lý, không theo công trình)
+  bi_danh:
+  - VP
+  - văn phòng
+  - van phong
+  - VP CTY
+  - văn phòng công ty

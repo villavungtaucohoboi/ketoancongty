@@ -1,0 +1,1134 @@
+# Danh mục ĐỐI TƯỢNG lấy từ MISA (sheet 'mã nhà cung cấp', TK 331, năm 2025). Mã trùng mã MISA.
+# AI tra theo MST trước, sau đó theo tu_khoa (chuỗi không dấu hay gặp trong nội dung chuyển khoản).
+# NCC chưa có ở đây sẽ được gán mã tạm NCC_<6 số cuối MST> và tô vàng để kế toán thêm vào MISA.
+doi_tuong:
+- ma: 2018NB23
+  ten: Cty TNHH thương mại xây dựng Phan Gia Phúc
+  mst: ''
+  tu_khoa: []
+- ma: 2018NB33
+  ten: Công ty TNHH Xây dựng và Kết cấu thép Nam Cường
+  mst: 0104763486
+  tu_khoa: []
+- ma: 2018NB48
+  ten: CÔNG TY TNHH SẢN XUẤT VÀ THƯƠNG MẠI NHỊ HÀ
+  mst: 0101390370
+  tu_khoa: []
+- ma: 2018NB54
+  ten: Công tyTNHH Đầu tư thương mại và phát triển Trường Phát
+  mst: '0102334555'
+  tu_khoa: []
+- ma: 2018NB63
+  ten: Công ty CP ABC
+  mst: ''
+  tu_khoa: []
+- ma: 2018NB71
+  ten: CÔNG TY CỔ PHẦN BÊ TÔNG THỊNH PHÁT
+  mst: 0901026821
+  tu_khoa: &id001
+  - BE TONG THINH PHAT
+- ma: 2018NB75
+  ten: Công ty CP Tập đoàn Quốc tế Sland
+  mst: '0105046160'
+  tu_khoa: []
+- ma: 2018NB98
+  ten: Trung tâm Đấu thầu qua mạng Quốc Gia
+  mst: 0107579319
+  tu_khoa: []
+- ma: 2022_NCC025
+  ten: Công ty TNHH Xây dựng và Thương mại tổng hợp Thanh Giang (Hiếu Hằng)
+  mst: '0107716727'
+  tu_khoa: []
+- ma: 2022_NCC026
+  ten: Công ty TNHH đầu tư thương mại in Đồng Tâm
+  mst: 0108428182
+  tu_khoa: []
+- ma: 2022_NCC041
+  ten: Công ty cổ phần đầu tư toàn cầu Đại Phát
+  mst: 0109691080
+  tu_khoa: []
+- ma: 2022_NCC044
+  ten: Công ty CP đầu tư thương mại - dịch vụ Tuệ Minh
+  mst: 0109731858
+  tu_khoa: []
+- ma: 2022_NCC047
+  ten: Trung tâm thí nghiệm và kiểm định xây dựng
+  mst: 0102071874-008
+  tu_khoa: []
+- ma: 2022_NCC050
+  ten: CÔNG TY CỔ PHẦN ĐẦU TƯ ABM
+  mst: 0108881233
+  tu_khoa: []
+- ma: 2022_NCC057
+  ten: Công ty TNHH Cơ khí và vật liệu xây dựng Hà Đông
+  mst: 0104109675
+  tu_khoa: []
+- ma: 2022_NCC062
+  ten: Công ty TNHH Thương mại và Kỹ thuật Hà Trang
+  mst: 0700643486
+  tu_khoa: []
+- ma: 2022_NCC070
+  ten: Công ty TNHH DV máy công trình Tú Anh Việt Nam
+  mst: 0106101907
+  tu_khoa: []
+- ma: 2024_NCC04
+  ten: Công ty Cổ phần Xây dựng và Bê tông Việt Xô
+  mst: 0106392685
+  tu_khoa: []
+- ma: 2024_NCC100
+  ten: Công ty TNHH XD Thương mại và Đầu Tư Thành Đạt
+  mst: 0109656569
+  tu_khoa: []
+- ma: 2024_NCC33
+  ten: Công ty Cổ phần Quân Thành An
+  mst: 0109447195
+  tu_khoa: []
+- ma: 2024_NCC37
+  ten: Công ty Cổ phần Dịch vụ Ô tô MB
+  mst: 0110096061
+  tu_khoa: []
+- ma: 2024_NCC49
+  ten: Công ty TNHH Tranh đá quý Việt Nam
+  mst: '5200644258'
+  tu_khoa: []
+- ma: 2024_NCC53
+  ten: Công ty TNHH Thương mại Dịch vụ Công nghiệp Add Power
+  mst: 0105798315
+  tu_khoa: []
+- ma: 2024_NCC74
+  ten: Công ty Cổ phần Đầu tư Thương mại và Dịch vụ PTG
+  mst: 0107410873
+  tu_khoa: []
+- ma: 2024_NCC76
+  ten: Công ty TNHH Thương mại và Đầu tư Xây dựng Trung Hiếu
+  mst: 0110676048
+  tu_khoa: []
+- ma: 2024_NCC77
+  ten: Công ty TNHH Sản xuất Kết cấu thép Xây dựng Đông Anh
+  mst: 0108019609
+  tu_khoa: []
+- ma: 2024_NCC88
+  ten: Công ty TNHH Quy hoạch Xây dựng và Thương mại Sông Hồng
+  mst: 0109873651
+  tu_khoa: []
+- ma: 2024_NCC91
+  ten: Công ty TNHH Thương mại và Dịch vụ Tin học Nhật Thành
+  mst: '0110057672'
+  tu_khoa: []
+- ma: 2024_NCC92
+  ten: Công ty cổ phần Xây dựng và sản xuất Nam Dương
+  mst: 0104639136
+  tu_khoa: []
+- ma: 2024_NCC96
+  ten: Công ty TNHH Đầu tư Thương mại Hải Tiến
+  mst: 0108455796
+  tu_khoa: []
+- ma: 2025_NC02
+  ten: Công ty TNHH Thương mại Dịch vụ Thành Đạt Phát TĐP
+  mst: '0110331445'
+  tu_khoa: []
+- ma: 2025_NC03
+  ten: CÔNG TY TNHH THƯƠNG MẠI VÀ XÂY DỰNG HIỀN CHÂU
+  mst: '1001131511'
+  tu_khoa: []
+- ma: 2025_NC116
+  ten: CÔNG TY TNHH SẢN XUẤT VÀ THƯƠNG MẠI THÉP HỒNG XUÂN
+  mst: 0900520587
+  tu_khoa: []
+- ma: 2025_NC117
+  ten: CÔNG TY CỔ PHẦN POWER CTN
+  mst: '2400956322'
+  tu_khoa: []
+- ma: 2025_NC118
+  ten: Công ty TNHH Thắng Hường
+  mst: 0700259777
+  tu_khoa: []
+- ma: 2025_NC119
+  ten: CÔNG TY CỔ PHẦN THƯƠNG MẠI VÀ SẢN XUẤT ĐOÀN MINH
+  mst: '0101437773'
+  tu_khoa: []
+- ma: 2025_NC120
+  ten: CÔNG TY TNHH MTWOOD
+  mst: 0109861536
+  tu_khoa: []
+- ma: 2025_NC121
+  ten: Hộ Kinh doanh Hoa tươi Ngọc Nguyên
+  mst: 8820120475-001
+  tu_khoa: []
+- ma: 2025_NC122
+  ten: CÔNG TY TNHH CHUNG ĐIỆP
+  mst: 0700278508
+  tu_khoa:
+  - CHUNG DIEP
+- ma: 2025_NC123
+  ten: CÔNG TY TNHH KỸ NGHỆ PHÚC ANH
+  mst: 0101417128
+  tu_khoa: []
+- ma: 2025_NC124
+  ten: CÔNG TY CỔ PHẦN DU LỊCH VÀ DỊCH VỤ LALAGO
+  mst: 0107959328
+  tu_khoa: []
+- ma: 2025_NC125
+  ten: CÔNG TY CỔ PHẦN FASTEX LOGISTIC VIỆT NAM
+  mst: 0109874013
+  tu_khoa: []
+- ma: 2025_NC128
+  ten: CÔNG TY TNHH MTV TMDV VÀ XUẤT NHẬP KHẨU HƯNG THỊNH
+  mst: 0107577914
+  tu_khoa: []
+- ma: 2025_NC136
+  ten: CÔNG TY TNHH THƯƠNG MẠI XÂY LẮP VÀ DỊCH VỤ AN HUY
+  mst: 0107489489
+  tu_khoa: []
+- ma: 2025_NC139
+  ten: Công ty CP Bia Mậu Dịch
+  mst: 0110423858
+  tu_khoa: []
+- ma: 2025_NC15
+  ten: Vũ Thị Nguyệt Hạnh
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC16
+  ten: Trần Văn Hoàn
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC17
+  ten: Công ty CP Đầu tư Thương mại và Vận tải Tuấn Vinh
+  mst: 0106779989
+  tu_khoa: []
+- ma: 2025_NC20
+  ten: CÔNG TY TNHH ĐẦU TƯ VINTEL VIỆT NAM
+  mst: 0106863976
+  tu_khoa: []
+- ma: 2025_NC21
+  ten: Công ty Cổ phần Elines
+  mst: '0104511457'
+  tu_khoa: []
+- ma: 2025_NC32
+  ten: Công ty TNHH Sự kiện và Hoa Thanh Khôi
+  mst: 0110837721
+  tu_khoa: []
+- ma: 2025_NC36
+  ten: Công ty TNHH B&T
+  mst: 0201138294
+  tu_khoa: []
+- ma: 2025_NC37
+  ten: Công ty TNHH Điện cơ Hồng Phát
+  mst: '2700925004'
+  tu_khoa: []
+- ma: 2025_NC39
+  ten: CÔNG TY TNHH XÂY DỰNG PHÚC VÂN NAM
+  mst: 0801143507
+  tu_khoa: []
+- ma: 2025_NC44
+  ten: Công ty Cổ phần Sản xuất Sun Panel
+  mst: 0108411485
+  tu_khoa: []
+- ma: 2025_NC49
+  ten: Công ty Cổ phần bưu vận Nội địa và Quốc tế Đông Dương
+  mst: 0107912577
+  tu_khoa: []
+- ma: 2025_NC54
+  ten: Công ty TNHH Quản lý nợ và Khai thác tài sản ngân hàng Á Châu
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC57
+  ten: Phạm Văn Quyết
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC58
+  ten: Trần Duy Hiếu
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC68
+  ten: Công ty TNHH Sản xuất Thương mại và Đầu tư Tiến Phong
+  mst: 0109249210
+  tu_khoa: []
+- ma: 2025_NC69
+  ten: Công ty TNHH Medlatec Việt Nam
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC71
+  ten: Công ty TNHH Thương Mại và Dịch vụ Xây Dựng Giang Anh
+  mst: 0900999666
+  tu_khoa: []
+- ma: 2025_NC72
+  ten: Công ty TNHH Quang Khải
+  mst: '0700226027'
+  tu_khoa: []
+- ma: 2025_NC82
+  ten: Công ty TNHH Xây dựng TM&DV Tiến Phát
+  mst: 0700853211
+  tu_khoa: []
+- ma: 2025_NC83
+  ten: Trần Văn Hiến
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC84
+  ten: Phạm Văn Thùy
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC86
+  ten: Công ty TNHH Ô tô Tuấn Cường
+  mst: ''
+  tu_khoa: []
+- ma: 2025_NC88
+  ten: Công ty TNHH Xây dựng và Nội thất Gia Linh 668
+  mst: 0109950352
+  tu_khoa: []
+- ma: 2025_NC93
+  ten: CÔNG TY TNHH THƯƠNG MẠI VÀ SẢN XUẤT NGUYỄN THÀNH
+  mst: 0900234360
+  tu_khoa: []
+- ma: 2025_NC94
+  ten: Công ty TNHH Thương mại và Dịch vụ Vận tải Tài Lộc
+  mst: 0700843333
+  tu_khoa: []
+- ma: 2025_NC98
+  ten: Công ty TNHH Kiểm toán và Tư vấn MKF Việt Nam
+  mst: 0105346968
+  tu_khoa: []
+- ma: 2025_NCC02
+  ten: Công ty TNHH Thương mại và Dịch vụ Chu Gia TB68
+  mst: '1001271660'
+  tu_khoa: []
+- ma: 2026NCC070
+  ten: CÔNG TY CỔ PHẦN THĂNG LONG CTC
+  mst: '0111017344'
+  tu_khoa: []
+- ma: 2026NCC105
+  ten: CÔNG TY TNHH BÁN LẺ FUJIMART VIỆT NAM
+  mst: 0108432911
+  tu_khoa: []
+- ma: 22_NCC14
+  ten: Công ty TNHH Việt Đức
+  mst: 0900215833
+  tu_khoa: []
+- ma: 22_NCC22
+  ten: Công ty TNHH Thương mại và dịch vụ quốc tế Việt Á
+  mst: 0106211850
+  tu_khoa: []
+- ma: 22_NCC32
+  ten: Công ty TNHH Trang thiết bị Bảo hộ Hà Phương
+  mst: 0109668003
+  tu_khoa: []
+- ma: 22_NCC40
+  ten: Công ty TNHH Vật liệu Xây dựng và thương mại Hưng Gia Thịnh
+  mst: '0110036263'
+  tu_khoa: []
+- ma: 22_TĐ05
+  ten: Công ty TNHH Xây dựng Kim Liên
+  mst: 0901030874
+  tu_khoa: []
+- ma: 23_NCC_06
+  ten: Công ty TNHH Sản xuất và thương mại dịch vụ quốc tế Trần Gia
+  mst: 0110107891
+  tu_khoa: []
+- ma: 23_NCC10
+  ten: Công ty TNHH Sản xuất và Thương mại Thép Đông Anh
+  mst: 0102378256
+  tu_khoa: []
+- ma: 23_NCC105
+  ten: Công ty Cổ phần Đầu tư Đại Dương Sơn
+  mst: 0106861104
+  tu_khoa: []
+- ma: 23_NCC121
+  ten: Công ty TNHH Thương mại và Dịch vụ N2 Việt Nam
+  mst: '2802923486'
+  tu_khoa: []
+- ma: 23_NCC17
+  ten: Công ty CP Ánh Dương Hà Nội
+  mst: '0106100406'
+  tu_khoa: []
+- ma: 23_NCC18
+  ten: Công ty Cổ phần Hợp tác Thế hệ mới
+  mst: 0105096362
+  tu_khoa: []
+- ma: 23_NCC22
+  ten: Công ty CP Bê tông Vạn Phúc
+  mst: ''
+  tu_khoa: []
+- ma: 23_NCC24
+  ten: Lê Văn Hà
+  mst: ''
+  tu_khoa: []
+- ma: 23_NCC26
+  ten: Công ty CP Xây Dựng và Thương mại Quan Sơn
+  mst: 0101945336
+  tu_khoa: []
+- ma: 23_NCC27
+  ten: Công ty Cổ phần Superlight Việt Nam
+  mst: '0106603350'
+  tu_khoa: []
+- ma: 23_NCC31
+  ten: Công ty TNHH Sản xuất và thương mại Cường Hương
+  mst: 0108004458
+  tu_khoa: []
+- ma: 23_NCC53
+  ten: Công ty TNHH Đầu tư Thương mại và Xây dựng Trang Minh
+  mst: '0105471013'
+  tu_khoa: []
+- ma: 23_NCC95
+  ten: Công ty Cổ phần Thương mại Xuất nhập khẩu Tân Phú Bình
+  mst: 0101766880
+  tu_khoa: []
+- ma: 23_NCC98
+  ten: Công ty TNHH Thương mại Sản xuất T&T Việt Nam
+  mst: ''
+  tu_khoa: []
+- ma: 24_NB04
+  ten: Công ty Cổ phần HT Việt Nam
+  mst: 0900631135
+  tu_khoa: []
+- ma: 24_NB05
+  ten: Công ty TNHH Thương mại Vận tải và Xây dựng Đại Vương
+  mst: 0900864531
+  tu_khoa: []
+- ma: 24_NC024
+  ten: Công ty TNHH Đầu tư Xây dựng và Thương mại Minh Khuê
+  mst: 0901044299
+  tu_khoa: []
+- ma: 24_NC047
+  ten: Công ty CP Bê tông và Xây dựng Tân Lộc
+  mst: 0202159064
+  tu_khoa: []
+- ma: 24_NC053
+  ten: Công ty TNHH Song Hoàng
+  mst: '0200371636'
+  tu_khoa: []
+- ma: 24_NC059
+  ten: Công ty TNHH Thương mại Chu Toàn
+  mst: 0105388076
+  tu_khoa: []
+- ma: 24_NC066
+  ten: Công ty cổ phần Đầu tư xây dựng và thương mại Hùng Hoàng
+  mst: 0201866790
+  tu_khoa: []
+- ma: 24_NC071
+  ten: Công ty TNHH HC An Thịnh
+  mst: 0700843005
+  tu_khoa: []
+- ma: 24_NC081
+  ten: Công ty CP Kinh doanh Vật liệu Xây dựng An Thịnh Phát
+  mst: 0202195591
+  tu_khoa: *id001
+- ma: 24_NC084
+  ten: Công ty TNHH Xây dựng và Phát triển Thương mại Lộc Tín
+  mst: 0108705284
+  tu_khoa: []
+- ma: 24_NC085
+  ten: Công ty TNHH Thương mại Dịch vụ Vận tải Ngọc Long 286
+  mst: 0109330278
+  tu_khoa: []
+- ma: 24_NC13
+  ten: Công ty TNHH Thương mại và Quảng cáo Nam Phát
+  mst: 0107783748
+  tu_khoa: []
+- ma: 24_NC21
+  ten: Công ty CP Đầu tư Ngôi Sao Châu Á
+  mst: '0103407171'
+  tu_khoa: []
+- ma: 24_NCC018
+  ten: Công ty TNHH Chế biến lâm sản & Thương mại Minh Ngọc
+  mst: '0104302372'
+  tu_khoa: []
+- ma: 24_NCC019
+  ten: Công ty Cổ phần Kiểm định và Môi trường Ecopark
+  mst: 0900616049
+  tu_khoa: []
+- ma: 24_NCC02
+  ten: Ông Vũ Văn Tâm
+  mst: ''
+  tu_khoa: []
+- ma: 24_NCC020
+  ten: Công ty Cổ phần Hợp tác Quốc tế VDC
+  mst: '2802923983'
+  tu_khoa: []
+- ma: 24_NCC024
+  ten: Công ty CP Quảng cáo và in công nghệ mới Đông Đô
+  mst: 0106154708
+  tu_khoa: []
+- ma: 24_NCC029
+  ten: Công ty Cổ phần Sản xuất Kinh doanh Gốm sứ Gia Lâm
+  mst: 0101913888
+  tu_khoa: []
+- ma: 24_NCC037
+  ten: Công ty TNHH Thương mại và Dịch vụ Thu Giang
+  mst: 0901044436
+  tu_khoa: []
+- ma: 24_NCC041
+  ten: Công ty TNHH Dịch vụ Thương mại và Nội thất Minh Đức
+  mst: 0110256893
+  tu_khoa: []
+- ma: 24_NCC044
+  ten: Công ty Cổ phần Riteccons
+  mst: 0108250372
+  tu_khoa: []
+- ma: 24_NCC045
+  ten: Công ty Cổ phần STC Bình Minh Việt
+  mst: '0104243014'
+  tu_khoa: []
+- ma: 24_NCC052
+  ten: Công ty CP Thực phẩm Sức khỏe Baker Baking Food
+  mst: 0109342611
+  tu_khoa: []
+- ma: 24_NCC062
+  ten: Công ty Cổ phần CIB Việt Nam
+  mst: '0106712751'
+  tu_khoa: []
+- ma: 24_NCC07
+  ten: Nguyễn Văn Chuẩn
+  mst: ''
+  tu_khoa: []
+- ma: 24_NCC10
+  ten: Công ty TNHH Lưới Mạnh Phát
+  mst: 0109564597
+  tu_khoa: []
+- ma: 24_NCC103
+  ten: Công ty TNHH Thương mại và Dịch vụ Vận tải An Huy
+  mst: 0109877769
+  tu_khoa: []
+- ma: 24_NCC106
+  ten: Công ty TNHH Xây dựng Thương mại Dịch vụ và Vận tải Hùng Dũng
+  mst: 0901131671
+  tu_khoa: []
+- ma: 24_NCC108
+  ten: Công ty Cổ phần Cơ khí Kỹ thuật và Thương mại Phan Anh
+  mst: '0105302777'
+  tu_khoa: []
+- ma: 24_NCC110
+  ten: Công ty CP Xuất nhập khẩu và Phát triển Nông nghiệp Việt Nam
+  mst: 0106008432
+  tu_khoa: []
+- ma: 24_NCC114
+  ten: Công ty TNHH Sản xuất Thương mại và Xây dựng NTT Việt Nam
+  mst: '0107604036'
+  tu_khoa: []
+- ma: 24_NCC115
+  ten: Chi nhánh Công ty CP Thương mại Cơ khí Tân Thanh Hải Phòng
+  mst: 0301367072-006
+  tu_khoa: []
+- ma: 24_NCC118
+  ten: Công ty TNHH Cơ khí và Thương mại Minh Hoàng
+  mst: 0106709452
+  tu_khoa: []
+- ma: 24_NV06
+  ten: Trần Ngọc Tuyến
+  mst: ''
+  tu_khoa: []
+- ma: 24_NV07
+  ten: Vũ Ngọc Quyền
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC500
+  ten: Công ty TNHH Ngọc Dần
+  mst: '0100777600'
+  tu_khoa: []
+- ma: 25_NCC501
+  ten: Phạm Công Huân
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC503
+  ten: CÔNG TY CỔ PHẦN XÂY DỰNG VÀ THƯƠNG MẠI KDCONS
+  mst: 0107722960
+  tu_khoa: []
+- ma: 25_NCC505
+  ten: Công ty TNHH Vật tư tổng hợp Hoàng Long
+  mst: 0108547052
+  tu_khoa: []
+- ma: 25_NCC506
+  ten: Công ty Cổ phần đầu tư MFO
+  mst: '0105041772'
+  tu_khoa: []
+- ma: 25_NCC507
+  ten: Công ty CP Nâng cẩu vận tải và Du lịch Nhâm Phát
+  mst: 0109345154
+  tu_khoa: []
+- ma: 25_NCC508
+  ten: Công ty TNHH Dịch vụ vận tải Lan Hải
+  mst: 0901195001
+  tu_khoa: []
+- ma: 25_NCC521
+  ten: Công ty TNHH Bảo hộ lao động Kiên Long
+  mst: 0105831121
+  tu_khoa: []
+- ma: 25_NCC523
+  ten: Công ty TNHH Vận tải và Thương mại Hoàn Sơn
+  mst: '2300864928'
+  tu_khoa: []
+- ma: 25_NCC529
+  ten: Công ty TNHH Hùng Dũng
+  mst: '0700235416'
+  tu_khoa: []
+- ma: 25_NCC533
+  ten: CHI NHÁNH CÔNG TY CỔ PHẦN GIẢI PHÁP CAREERVIET
+  mst: 0303284985-002
+  tu_khoa: []
+- ma: 25_NCC534
+  ten: CÔNG TY TNHH THƯƠNG MẠI THỊNH ANH HN
+  mst: 0700898484
+  tu_khoa: []
+- ma: 25_NCC535
+  ten: CÔNG TY TNHH XUẤT NHẬP KHẨU HẬU PHƯƠNG
+  mst: 0110058387
+  tu_khoa: []
+- ma: 25_NCC536
+  ten: CÔNG TY CỔ PHẦN ĐẦU TƯ DU LỊCH TRÚC VIỆT
+  mst: 0106059959
+  tu_khoa: []
+- ma: 25_NCC537
+  ten: CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ VÀ XÂY DỰNG ANH HUY
+  mst: 0700833416
+  tu_khoa: []
+- ma: 25_NCC538
+  ten: CÔNG TY CỔ PHẦN ĐẦU TƯ XÂY DỰNG VÀ THƯƠNG MẠI HỢP LỰC
+  mst: 0108205475
+  tu_khoa: []
+- ma: 25_NCC539
+  ten: CÔNG TY TNHH ĐIỆN MÁY HOÀNG ANH
+  mst: '0700532553'
+  tu_khoa: []
+- ma: 25_NCC540
+  ten: CÔNG TY TNHH THIẾT BỊ PHỤ TÙNG TÂN HOÀ PHÁT
+  mst: 0104197431
+  tu_khoa: []
+- ma: 25_NCC541
+  ten: CÔNG TY TNHH ĐẦU TƯ XÂY DỰNG XUÂN LỘC
+  mst: 0700642588
+  tu_khoa: []
+- ma: 25_NCC542
+  ten: CÔNG TY TNHH THƯƠNG MẠI VÀ DỊCH VỤ NHUNG LAN
+  mst: 0700863594
+  tu_khoa: []
+- ma: 25_NCC543
+  ten: CÔNG TY CỔ PHẦN THIẾT BỊ XÂY DỰNG VÀ DỊCH VỤ - HT
+  mst: 0108892933
+  tu_khoa: []
+- ma: 25_NCC544
+  ten: CÔNG TY TNHH LÂM ANH NHI
+  mst: 0601218811
+  tu_khoa: []
+- ma: 25_NCC545
+  ten: CÔNG TY TNHH THÁI HUY KHANG
+  mst: 0601072129
+  tu_khoa: []
+- ma: 25_NCC547
+  ten: CÔNG TY BẢO HIỂM MIC THỦ ĐÔ
+  mst: 0102385623-026
+  tu_khoa: []
+- ma: 25_NCC552
+  ten: Phạm Thanh Tuân
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC553
+  ten: Nguyễn Văn Hiến
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC555
+  ten: Nguyễn Thị Quế
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC565
+  ten: CÔNG TY CỔ PHẦN CÔNG NGHỆ KBC VIỆT NAM
+  mst: 0104988232
+  tu_khoa: []
+- ma: 25_NCC574
+  ten: CÔNG TY CP MÔI TRƯỜNG THANH THỦY
+  mst: 0700611149
+  tu_khoa: []
+- ma: 25_NCC579
+  ten: CÔNG TY TNHH ĐẦU TƯ, THƯƠNG MẠI VÀ DỊCH VỤ MINH CHÍNH
+  mst: 0101902195
+  tu_khoa: []
+- ma: 25_NCC580
+  ten: Công ty TNHH Xây dựng Huynh Nga
+  mst: 0700786928
+  tu_khoa: []
+- ma: 25_NCC585
+  ten: CÔNG TY CỔ PHẦN PHÁT TRIỂN THƯƠNG MẠI BẨY LỢI
+  mst: 0102326586
+  tu_khoa: []
+- ma: 25_NCC607
+  ten: CÔNG TY TNHH ĐIỆN MÁY TRỌNG TÍN
+  mst: '0107364433'
+  tu_khoa: []
+- ma: 25_NCC610
+  ten: CÔNG TY CỔ PHẦN THƯƠNG MẠI VÀ DỊCH VỤ TRẮC ĐỊA BẢN ĐỒ
+  mst: 0102269507
+  tu_khoa: []
+- ma: 25_NCC612
+  ten: Vũ Thị Hằng
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC620
+  ten: CÔNG TY CỔ PHẦN THƯƠNG MẠI QUỐC TẾ TRÍ VIỆT
+  mst: '0106355411'
+  tu_khoa: []
+- ma: 25_NCC629
+  ten: CÔNG TY CỔ PHẦN CƠ KHÍ THIẾT BỊ XÂY DỰNG NAM PHÚ
+  mst: 0104764592
+  tu_khoa: []
+- ma: 25_NCC633
+  ten: CÔNG TY CỔ PHẦN THƯƠNG MẠI VÀ DỊCH VỤ KỸ THUẬT NHẬT NAM
+  mst: 0102313386
+  tu_khoa: []
+- ma: 25_NCC634
+  ten: CÔNG TY CỔ PHẦN SẢN XUẤT VÀ THƯƠNG MẠI TÂN HOÀNG KIM
+  mst: 0104911906
+  tu_khoa: []
+- ma: 25_NCC635
+  ten: Công ty CP SX bê tông Việt Mỹ
+  mst: '0107476352'
+  tu_khoa: []
+- ma: 25_NCC640
+  ten: CÔNG TY TNHH DU LỊCH PARIS HÀ NỘI
+  mst: 0102718791
+  tu_khoa: []
+- ma: 25_NCC644
+  ten: TRẦN BÌNH MINH
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC645
+  ten: CÔNGTYCỔPHẦN CƠĐIỆN LẠNH KIM THÀNH
+  mst: 0106013129
+  tu_khoa: []
+- ma: 25_NCC648
+  ten: CÔNG TY TNHH CƠ KHÍ XÂY DỰNG SUNRISE VIỆT NAM
+  mst: 0107538344
+  tu_khoa: []
+- ma: 25_NCC650
+  ten: CÔNG TY CỔ PHẦN TƯ VẤN XÂY DỰNG HẢI KIM
+  mst: 0106687061
+  tu_khoa: []
+- ma: 25_NCC653
+  ten: CÔNG TY CỔ PHẦN ĐẦU TƯ XÂY DỰNG AN PHÚ LINH
+  mst: '0110006205'
+  tu_khoa: []
+- ma: 25_NCC661
+  ten: VIỄN THÔNG HÀ NỘI - CHI NHÁNH TẬP ĐOÀN BƯU CHÍNH VIỄN THÔNG VIỆT NAM
+  mst: 0100686223
+  tu_khoa: []
+- ma: 25_NCC662
+  ten: Công ty CP Xây dựng và Phát triển Đô thị Hưng Long
+  mst: 0105678674
+  tu_khoa: []
+- ma: 25_NCC663
+  ten: Dương Thành Luân
+  mst: ''
+  tu_khoa: []
+- ma: 25_NCC664
+  ten: Công ty TNHH Tư vấn và Kiểm toán Quốc tế
+  mst: 0104766529
+  tu_khoa: []
+- ma: 25NB_06
+  ten: Công ty TNHH Hiệp Thành
+  mst: '2700476888'
+  tu_khoa: []
+- ma: 25NB_09
+  ten: Công ty TNHH Một thành viên VPID Hà Nam
+  mst: '0700540547'
+  tu_khoa: []
+- ma: 25NCC_504
+  ten: CÔNG TY TNHH VẬN TẢI TM VIỆT PHÁT
+  mst: '0107261406'
+  tu_khoa: []
+- ma: 25NCC_505
+  ten: VĂN PHÒNG CÔNG CHỨNG GIA KHÁNH
+  mst: 0104061818
+  tu_khoa: []
+- ma: 25NCC_506
+  ten: DOANH NGHIỆP TƯ NHÂN TÂN ĐẠI AN
+  mst: 0101561594
+  tu_khoa: []
+- ma: 25NCC_507
+  ten: CÔNG TY TNHH THƯƠNG MẠI XUẤT NHẬP KHẨU THIÊN LINH
+  mst: '0106307030'
+  tu_khoa: []
+- ma: 25NCC_508
+  ten: CÔNG TY TNHH VẬN TẢI VÀ THƯƠNG MẠI MẠNH HOÀNG
+  mst: 0104353955
+  tu_khoa: []
+- ma: 25NCC_509
+  ten: CÔNG TY CỔ PHẦN ĐẦU TƯ QUỐC TẾ THAIEVER
+  mst: '0106634172'
+  tu_khoa: []
+- ma: 25NCC_510
+  ten: CÔNG TY CỔ PHẦN THẨM ĐỊNH GIÁ FARGO
+  mst: 0107930135
+  tu_khoa: []
+- ma: 25NCC_511
+  ten: CÔNG TY TNHH ĐẦU TƯ THƯƠNG MẠI ĐÌNH GIA
+  mst: 0110587126
+  tu_khoa: []
+- ma: 25NCC_521
+  ten: CÔNG TY TNHH NƯỚC VŨ TRỤ
+  mst: '0101700544'
+  tu_khoa: []
+- ma: 25NCC_522
+  ten: CÔNG TY TNHH MỘT THÀNH VIÊN SẢN XUẤT, DỊCH VỤ VÀ THƯƠNG MẠI MINH THƯ
+  mst: '0104560077'
+  tu_khoa: []
+- ma: 25NCC_523
+  ten: CÔNG TY TNHH THƯƠNG MẠI LỘC VIỆT
+  mst: 0105206008
+  tu_khoa: []
+- ma: 25NCC_524
+  ten: CÔNG TY CỔ PHẦN VẬT LIỆU THÔNG MINH HÀ NAM
+  mst: 0700863675
+  tu_khoa: []
+- ma: 25NCC_525
+  ten: CÔNG TY CỔ PHẦN NỘI THẤT TÂM ANH
+  mst: 0109106452
+  tu_khoa: []
+- ma: 25NCC_526
+  ten: CÔNG TY CỔ PHẦN SOLAR TÂM TÍN
+  mst: 0109086936
+  tu_khoa: []
+- ma: 25NCC_527
+  ten: CÔNG TY TNHH THƯƠNG MẠI DỊCH VỤ TIN HỌC AN PHÁT
+  mst: 0101468933
+  tu_khoa: []
+- ma: 25NCC_528
+  ten: CÔNG TY CỔ PHẦN MASTERY
+  mst: 0316038810
+  tu_khoa: []
+- ma: 25NCC_529
+  ten: CÔNG TY TNHH CÔNG NGHIỆP PHÚC CHÂU AN
+  mst: 0700863139
+  tu_khoa: []
+- ma: 25NCC_530
+  ten: CÔNG TY TNHH QUẢNG CÁO & THƯƠNG MẠI ĐÀO GIA PHÁT
+  mst: 0108132851
+  tu_khoa: []
+- ma: 25NCC_531
+  ten: CÔNG TY TNHH THƯƠNG MẠI VHC
+  mst: 0105690657
+  tu_khoa: []
+- ma: 25NCC_602
+  ten: CÔNG TY TNHH XÂY DỰNG VÀ VẬN TẢI TRẦN GIA
+  mst: 0108366088
+  tu_khoa: []
+- ma: 25NCC_604
+  ten: CÔNG TY TNHH GIẢI PHÁP THI CÔNG SAKI
+  mst: '3702500295'
+  tu_khoa: []
+- ma: 25NCC_605
+  ten: CÔNG TY TNHH XÂY DỰNG VÀ THƯƠNG MẠI NGỌC THUẬN
+  mst: 0110544108
+  tu_khoa: []
+- ma: 25NCC_606
+  ten: CÔNG TY TNHH TRUYỀN THÔNG VÀ CÔNG NGHỆ TIÊN PHONG
+  mst: '5300680940'
+  tu_khoa: []
+- ma: 25NCC_607
+  ten: CÔNG TY TNHH SẢN XUẤT VÀ KINH DOANH AN VŨ
+  mst: 0108608731
+  tu_khoa: []
+- ma: 25NCC_611
+  ten: CÔNG TY TNHH TM &DV VỆ SINH PHONG THỦY
+  mst: 0111097886
+  tu_khoa: []
+- ma: 25NCC_612
+  ten: CÔNG TY TNHH VÂN QUANG PHÁT
+  mst: '0110747066'
+  tu_khoa: []
+- ma: 25NCC_618
+  ten: CÔNG TY CỔ PHẦN NHỰA CHÂU ÂU XANH
+  mst: '4601144268'
+  tu_khoa: []
+- ma: 25NCC_619
+  ten: CÔNG TY TNHH DỊCH VỤ THƯƠNG MẠI TẤT THÀNH CÔNG
+  mst: 0700764378
+  tu_khoa: []
+- ma: 25NCC_620
+  ten: CÔNG TY CỔ PHẦN SẢN XUẤT VÀ THƯƠNG MẠI WINSUN VIỆT NAM
+  mst: 0108720490
+  tu_khoa: []
+- ma: ASEN
+  ten: Công ty TNHH Dịch thuật và Thương mại ASEN
+  mst: 0101941846
+  tu_khoa: []
+- ma: ĐHXD
+  ten: Đại học Xây Dựng Hà Nội
+  mst: 0102071874
+  tu_khoa: []
+- ma: NB 401
+  ten: Công ty CP Xây dựng và VL XD THK
+  mst: ''
+  tu_khoa: []
+- ma: NB 409
+  ten: Công ty TNHH Xây dựng Sản xuất và thương mại Thành Phát Hưng Yên
+  mst: ''
+  tu_khoa: []
+- ma: NB 430
+  ten: Công ty CP Thương mại Máy tính An Phát
+  mst: 0108940873
+  tu_khoa: []
+- ma: NB 434
+  ten: Công ty TNHH ONC
+  mst: 0103992853
+  tu_khoa: []
+- ma: NB 436
+  ten: Công ty CP Xây dựng và Dịch vụ An Hưng
+  mst: '0107353142'
+  tu_khoa: []
+- ma: NB 450
+  ten: Công ty TNHH Dịch vụ Thương mại Điện nước Anh Quân
+  mst: 0101628168
+  tu_khoa: []
+- ma: NB0001
+  ten: Công ty TNHH Thanh Long Long Biên
+  mst: 0108426562
+  tu_khoa: []
+- ma: NB0002
+  ten: Công ty Cổ phần PJM
+  mst: ''
+  tu_khoa: []
+- ma: NB117
+  ten: Công ty CP Bê tông Thịnh Phát
+  mst: ''
+  tu_khoa: *id001
+- ma: NB134
+  ten: Tập đoàn Công nghiệp - Viễn thông Quân đội
+  mst: 0100109106
+  tu_khoa: []
+- ma: NB163
+  ten: Công ty Cổ phần Đầu tư Công nghệ Hacom
+  mst: 0101161194
+  tu_khoa: []
+- ma: NB180
+  ten: Công ty TNHH DV Kỹ thuật và TM Sinh Thái Sơn
+  mst: ''
+  tu_khoa: []
+- ma: NB181
+  ten: Công ty TNHH Thương mại Truyền thông VHC
+  mst: '2700874092'
+  tu_khoa: []
+- ma: NB195
+  ten: Công ty CP Bê tông cốt liệu sạch Thịnh Hưng
+  mst: ''
+  tu_khoa: []
+- ma: NB196
+  ten: Công ty TNHH Nội thất Oanh Bằng
+  mst: ''
+  tu_khoa: []
+- ma: NB217
+  ten: Công ty TNHH MTV vận tải Anh Minh
+  mst: '2700601874'
+  tu_khoa: []
+- ma: NB218
+  ten: Công ty TNHH Sản xuất Thương mại Vĩnh Phát
+  mst: '2700282755'
+  tu_khoa: []
+- ma: NB231
+  ten: Công ty Cổ phần Bê tông Thương phẩm XK Việt - Mỹ
+  mst: '2700714885'
+  tu_khoa: []
+- ma: NB232
+  ten: Chi nhánh công ty CP Liên Á Quốc Tế
+  mst: 0304413961-001
+  tu_khoa: []
+- ma: NB237
+  ten: Công ty CP Đầu tư Phát triển Dịch vụ và Thương mại Thanh Tùng
+  mst: 0108514794
+  tu_khoa: []
+- ma: NB241
+  ten: Công ty TNHH Kỹ thuật cơ điện Vĩnh Tiến
+  mst: ''
+  tu_khoa: []
+- ma: NB245
+  ten: Công ty CP Nội thất AID Việt Nam
+  mst: ''
+  tu_khoa: []
+- ma: NB246
+  ten: Công ty Cổ phần Modern Light Việt Nam
+  mst: 0108769986
+  tu_khoa: []
+- ma: NB255
+  ten: Công ty TNHH Đá Vũ Hoàng
+  mst: ''
+  tu_khoa: []
+- ma: NB259
+  ten: Công ty TNHH MTV Vương Đông
+  mst: ''
+  tu_khoa: []
+- ma: NB279
+  ten: Công ty CP Tư vấn và xây dựng HĐ Việt Nam
+  mst: ''
+  tu_khoa: []
+- ma: NB329
+  ten: Công ty CP Pool Store Việt Nam
+  mst: ''
+  tu_khoa: []
+- ma: NB379
+  ten: Công ty CP Hoa cây cảnh Đỗ Hoàng Phúc
+  mst: 0601138193
+  tu_khoa: []
+- ma: NB392
+  ten: Doanh nghiệp tư nhân Xây dựng Sản xuất và Thương mại Việt Hoàn
+  mst: '2700709437'
+  tu_khoa: []
+- ma: NB396
+  ten: Công ty TNHH Thu phí tự động VETC
+  mst: '0107500414'
+  tu_khoa: []
+- ma: NB397
+  ten: Công ty TNHH XD Vichome
+  mst: ''
+  tu_khoa: []
+- ma: NB398
+  ten: CÔNG TY CỔ PHẦN ĐẦU TƯ THƯƠNG MẠI HOÀNG TRUNG
+  mst: 0103822925
+  tu_khoa: []
+- ma: NB412
+  ten: Công ty CP Đầu tư xây dựng thương mại Sơn Trang
+  mst: ''
+  tu_khoa: []
+- ma: NB413
+  ten: Chi nhánh công ty Cổ phần Thế giới di động
+  mst: 0303217354-001
+  tu_khoa: []
+- ma: NB414
+  ten: Công ty CP Đầu tư và sản xuất Bình Yên
+  mst: ''
+  tu_khoa: []
+- ma: NB417
+  ten: Công ty CP Kinh doanh XNK Đồ chơi Kinh Bắc
+  mst: ''
+  tu_khoa: []
+- ma: NB437
+  ten: Công ty TNHH Manosa Việt Nam
+  mst: 0106805999
+  tu_khoa: []
+- ma: NB442
+  ten: Công ty TNHH TM Long Hùng Hưng Yên
+  mst: ''
+  tu_khoa: []
+- ma: NB469
+  ten: Công ty TNHH Phan Media Việt Nam
+  mst: 0107866708
+  tu_khoa: []
+- ma: NB522
+  ten: Công ty CP Nhà thép Vikor
+  mst: '1001207030'
+  tu_khoa: []
+- ma: NB554
+  ten: CÔNG TY CỔ PHẦN CÔNG NGHỆ HOA LÂM
+  mst: 0105793941
+  tu_khoa: []
+- ma: NB557
+  ten: Công ty CP Đầu tư Phú Định
+  mst: 0107829174
+  tu_khoa: []
+- ma: NB564
+  ten: Công ty CP thiết kế và xây dựng phát triển Trường Sơn
+  mst: ''
+  tu_khoa: []
+- ma: NB573
+  ten: Công ty TNHH Sungshin Vina
+  mst: '0500534507'
+  tu_khoa: []
+- ma: NB583
+  ten: Công ty TNHH Xây dựng Sông Đà 704
+  mst: 0107509819
+  tu_khoa: []
+- ma: NB588
+  ten: Công ty Cổ phần VLXD Minh Hạnh
+  mst: '0104735672'
+  tu_khoa: []
+- ma: NB589
+  ten: Công ty TNHH Chế tạo thiết bị Tiến Thành
+  mst: 0106698641
+  tu_khoa: []
+- ma: NB611
+  ten: Vũ Văn Dũng
+  mst: ''
+  tu_khoa: []
+- ma: NB616
+  ten: Công ty CP Đầu tư phát triển Hòa Tiến
+  mst: 0106841605
+  tu_khoa: []
+- ma: NB619
+  ten: Công ty TNHH Toàn 87
+  mst: '2400897437'
+  tu_khoa: []
+- ma: NB620
+  ten: Công ty TNHH Xây dựng và dịch vụ vận tải Tuấn Bảo
+  mst: ''
+  tu_khoa: []
+- ma: NB623
+  ten: Công ty TNHH Hải Phương VN
+  mst: 0202148295
+  tu_khoa: []
+- ma: NB625
+  ten: Công ty CP Đầu tư XDTM và DV Nhật Huy
+  mst: ''
+  tu_khoa: []
+- ma: NB628
+  ten: Công ty CP Bê tông và xây dựng Sông Hồng
+  mst: ''
+  tu_khoa: []
+- ma: NB630
+  ten: Công ty CP Dịch vụ Đầu tư Thương mại Phú Hưng
+  mst: 0107928633
+  tu_khoa: []
+- ma: NCC_256
+  ten: Công ty TNHH Dịch vụ Thương mại Cường Khánh
+  mst: 0700841135
+  tu_khoa: []
+- ma: NCC_259
+  ten: CÔNG TY CỔ PHẦN BÊ TÔNG THƯƠNG PHẨM VIỆT MỸ
+  mst: 0110861805
+  tu_khoa: []
+- ma: NCC_265
+  ten: Công ty CP Phát triển Thành Mỹ
+  mst: 0700828790
+  tu_khoa: []
+- ma: NCC_285
+  ten: CÔNG TY CỔ PHẦN THƯƠNG MẠI VẬN TẢI THU AN
+  mst: 0102398502
+  tu_khoa: []
+- ma: NCC_288
+  ten: CÔNG TY TNHH KIẾN TRÚC VÀ ĐẦU TƯ XÂY DỰNG THƯƠNG MẠI BẢO GIA HÂN
+  mst: 0108708246
+  tu_khoa: []
+- ma: NCC_407
+  ten: CÔNG TY CỔ PHẦN MÔI TRƯỜNG VÀ AN TOÀN CÔNG NGHIỆP PHƯƠNG NAM
+  mst: 0107511582
+  tu_khoa: []
+- ma: NCC_629
+  ten: CÔNG TY TNHH QUẢN LÝ NỢ VÀ KHAI THÁC TÀI SẢN NGÂN HÀNG Á CHÂU
+  mst: 0303539425
+  tu_khoa: []
+- ma: NCC_630
+  ten: CÔNG TY CỔ PHẦN CƠ ĐIỆN VÀ XÂY DỰNG THP VIỆT NAM
+  mst: '0107474203'
+  tu_khoa: []
+- ma: NCC044
+  ten: Công ty Cổ phần Lasso
+  mst: 0108601366
+  tu_khoa: []
+- ma: NK Anh Minh
+  ten: Công ty TNHH Sản xuất và thương mại Anh Minh
+  mst: ''
+  tu_khoa: []
+- ma: NV0022
+  ten: Công ty TNHH thương mại và xây dựng NJC Việt Nam
+  mst: ''
+  tu_khoa: []
+- ma: Perfect Media
+  ten: CHI NHÁNH THÀNH PHỐ HÀ NỘI-CÔNG TY TNHH MỘT THÀNH VIÊN TRUYỀN THÔNG VÀ TỔ CHỨC SỰ KIỆN PERFECT MEDIA
+  mst: 0800741409-001
+  tu_khoa: []
+- ma: Thép Triển Phát
+  ten: Công ty TNHH XL và SX thép Triển Phát
+  mst: ''
+  tu_khoa: []
+- ma: VANPHONG259PV
+  ten: Căn nhà số 259 Phố Vọng - Nguyễn Diệu Linh
+  mst: ''
+  tu_khoa: []
+- ma: VIETTEL POST
+  ten: Tổng công ty CP bưu chính Viettel
+  mst: 0104093672
+  tu_khoa: []
